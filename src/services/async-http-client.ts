@@ -2,7 +2,7 @@ import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import Fixtures from './fixtures';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoginStatus} from './messages';
+import {CurrentUser, LoginStatus} from './messages';
 
 @inject(HttpClient, Fixtures, EventAggregator)
 export default class AsyncHttpClient {
@@ -25,6 +25,10 @@ export default class AsyncHttpClient {
     return this.http.post(url, obj);
   }
 
+  put(url, obj) {
+    return this.http.put(url, obj);
+  }
+
   delete(url) {
     return this.http.delete(url);
   }
@@ -42,8 +46,9 @@ export default class AsyncHttpClient {
               'bearer ' + response.content.token,
             );
           });
+          this.ea.publish(new LoginStatus(true));
+          this.ea.publish(new CurrentUser(response.content.user));
         }
-        this.ea.publish(new LoginStatus(true));
       })
       .catch(error => {
         this.ea.publish(new LoginStatus(false, 'service not available'));

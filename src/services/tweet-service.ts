@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { LoginStatus, LastestTweetList } from './messages';
+import {LoginStatus, LastestTweetList, CurrentUser} from './messages';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Tweet, User } from './models';
 import AsyncHttpClient from './async-http-client';
@@ -10,6 +10,7 @@ export class TweetService {
   ea: EventAggregator;
   ac: AsyncHttpClient;
   tweets: Array<Tweet> = [];
+  currentUser: User;
 
   constructor(ea, ac) {
     this.ea = ea;
@@ -40,6 +41,9 @@ export class TweetService {
       password: password
     };
     this.ac.authenticate('/api/users/authenticate', user);
+    this.ea.subscribe(CurrentUser, event => {
+      this.currentUser = event.user;
+    })
   }
 
   logout() {
@@ -59,5 +63,11 @@ export class TweetService {
         this.ea.publish(new LastestTweetList((res.content.length === 0), res.content));
       }
     });
+  }
+
+  updateProfilePicture(formData: FormData) {
+    this.ac.put('/api/profilePicture', formData).then(res => {
+      this.ea.publish(new CurrentUser(res.content));
+    })
   }
 }

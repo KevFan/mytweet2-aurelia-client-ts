@@ -1,4 +1,4 @@
-import {Tweet} from "./models";
+import {Tweet, User} from "./models";
 
 export class LoginStatus {
   status: boolean;
@@ -16,5 +16,13 @@ export class LastestTweetList {
   constructor(empty: boolean, tweets: Array<Tweet>) {
     this.empty = empty;
     this.tweets = tweets;
+  }
+}
+
+export class CurrentUser {
+  user: User;
+
+  constructor(user: User) {
+    this.user = user;
   }
 }
