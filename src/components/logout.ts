@@ -1,4 +1,4 @@
-import { DonationService } from '../services/donation-service';
+import { DonationService } from '../services/tweet-service';
 import { inject } from 'aurelia-framework';
 
 @inject(DonationService)

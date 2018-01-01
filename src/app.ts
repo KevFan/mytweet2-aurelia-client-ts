@@ -2,7 +2,7 @@ import { inject, Aurelia } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { LoginStatus } from './services/messages';
-import { DonationService } from './services/donation-service';
+import { DonationService } from './services/tweet-service';
 
 
 @inject(Aurelia, EventAggregator, DonationService)
