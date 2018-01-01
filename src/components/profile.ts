@@ -1,7 +1,7 @@
 import {User} from "../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../services/tweet-service";
-import {CurrentUser} from "../services/messages";
+import {CurrentUser, LastestTweetList} from "../services/messages";
 import AsyncHttpClient from "../services/async-http-client";
 import {inject} from "aurelia-framework";
 
@@ -22,15 +22,18 @@ export class Profile {
     let formData = new FormData();
     formData.append('image', this.picture[0]);
     this.tweetService.updateProfilePicture(formData);
-    this.ea.subscribe(CurrentUser, event => {
-      this.user = event.user;
-    })
+    this.updateUserAndTweets();
   }
 
   deleteProfilePicture() {
     this.tweetService.deleteProfilePicture();
+    this.updateUserAndTweets();
+  }
+
+  updateUserAndTweets() {
     this.ea.subscribe(CurrentUser, event => {
       this.user = event.user;
+      this.tweetService.getAllTweets();
     })
   }
 }

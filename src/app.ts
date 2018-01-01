@@ -44,12 +44,12 @@ export class App {
     ]);
     this.router = router;
   }
-
-  attached() {
-    if (this.ts.isAuthenticated()) {
-      this.au.setRoot('home').then(() => {
-        this.router.navigateToRoute('dashboard');
-      });
-    }
-  }
+  //
+  // attached() {
+  //   if (this.ts.isAuthenticated()) {
+  //     this.au.setRoot('home').then(() => {
+  //       this.router.navigateToRoute('dashboard');
+  //     });
+  //   }
+  // }
 }

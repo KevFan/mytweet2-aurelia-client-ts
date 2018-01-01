@@ -1,7 +1,7 @@
-import { inject } from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
 import {LoginStatus, LastestTweetList, CurrentUser} from './messages';
-import { EventAggregator } from 'aurelia-event-aggregator';
-import { Tweet, User } from './models';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
 
 
@@ -18,12 +18,10 @@ export class TweetService {
   }
 
 
-  register(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ) {
+  register(firstName: string,
+           lastName: string,
+           email: string,
+           password: string,) {
     const newUser = {
       firstName: firstName,
       lastName: lastName,
@@ -74,6 +72,12 @@ export class TweetService {
   deleteProfilePicture() {
     this.ac.delete('/api/profilePicture').then(res => {
       this.ea.publish(new CurrentUser(res.content));
+    })
+  }
+
+  deleteOneTweet(id) {
+    this.ac.delete('/api/tweets/' + id).then(res => {
+      this.getAllTweets();
     })
   }
 }

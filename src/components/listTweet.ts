@@ -23,4 +23,12 @@ export class TimeLine {
       this.tweets = event.tweets;
     })
   }
+
+  deleteTweet(id) {
+    this.tweetService.deleteOneTweet(id);
+    this.ea.subscribe(LastestTweetList, event => {
+      this.empty = event.empty;
+      this.tweets = event.tweets;
+    })
+  }
 }

@@ -13,14 +13,14 @@
         </div>
         <div class="extra content">
           <div class="left floated author">
-            <a href="/view/{{tweetUser._id}}">
+            <a href="/view/${tweet.tweetUser._id}">
               <img class="ui avatar image" if.bind="tweet.tweetUser.image" src="${tweet.tweetUser.image}">
               <img class="ui avatar image" else src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
               ${tweet.tweetUser.firstName} ${tweet.tweetUser.lastName}
             </a>
           </div>
           <div class="right floated">
-            <a href="/deleteSpecificTweet/{{../user.id}}/{{_id}}">
+            <a click.delegate="deleteTweet(tweet._id)">
               <i class="red delete icon"></i>
             </a>
           </div>
