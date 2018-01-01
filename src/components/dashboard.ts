@@ -4,6 +4,7 @@ import {TweetService} from "../services/tweet-service";
 import {CurrentUser, LastestTweetList} from "../services/messages";
 import AsyncHttpClient from "../services/async-http-client";
 import {inject} from "aurelia-framework";
+import * as $ from 'jquery';
 
 @inject(TweetService, EventAggregator)
 export class Dashboard {
@@ -19,5 +20,18 @@ export class Dashboard {
 
   deleteAllUserTweets(userId) {
     this.tweetService.deleteAllUserTweets(userId);
+  }
+
+  attached() {
+    $(document).ready(function () {
+      $('.item').on('click', function(){
+        // using the attribute data-modal to identify for what modal the button references
+        let modal = $(this).attr('data-modal');
+        // creating the individual event attached to click over button
+        $('#'+modal+'.modal').modal(
+          'show'
+        );
+      });
+    });
   }
 }

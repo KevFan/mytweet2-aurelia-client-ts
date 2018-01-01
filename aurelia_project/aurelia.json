@@ -80,7 +80,17 @@
             "main": "aurelia-testing",
             "env": "dev"
           },
-          "text"
+          "text",
+          "jquery",
+          {
+            "name": "semantic-ui",
+            "path": "../jspm_packages/github/Semantic-Org/Semantic-UI@2.2.13/",
+            "main": "semantic.min.js",
+            "resources": [
+              "semantic.min.css"
+            ]
+          }
+
         ]
       }
     ],
