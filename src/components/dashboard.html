@@ -5,6 +5,14 @@
       <compose view-model="./profile"></compose>
     </div>
     <div class="twelve wide column">
+      <div class="ui center aligned basic segment">
+        <button class="circular ui icon blue button item" data-modal="addTweet">
+          <i class="plus icon"></i>
+        </button>
+        <button click.delegate="deleteAllUserTweets(user._id)" class="circular ui icon red button">
+          <i class="trash icon"></i>
+        </button>
+      </div>
       <compose view-model="./listTweet"></compose>
     </div>
   </section>

@@ -80,4 +80,10 @@ export class TweetService {
       this.getAllTweets();
     })
   }
+
+  deleteAllUserTweets(userid) {
+    this.ac.delete('/api/tweets/users/' + userid).then( res => {
+      this.getAllTweets();
+    })
+  }
 }
