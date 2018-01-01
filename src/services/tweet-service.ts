@@ -70,4 +70,10 @@ export class TweetService {
       this.ea.publish(new CurrentUser(res.content));
     })
   }
+
+  deleteProfilePicture() {
+    this.ac.delete('/api/profilePicture').then(res => {
+      this.ea.publish(new CurrentUser(res.content));
+    })
+  }
 }

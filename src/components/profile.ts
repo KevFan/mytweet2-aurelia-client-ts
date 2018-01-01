@@ -26,4 +26,11 @@ export class Profile {
       this.user = event.user;
     })
   }
+
+  deleteProfilePicture() {
+    this.tweetService.deleteProfilePicture();
+    this.ea.subscribe(CurrentUser, event => {
+      this.user = event.user;
+    })
+  }
 }
