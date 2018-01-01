@@ -1,0 +1,34 @@
+<template>
+
+    <div class="ui centered three doubling stackable cards basic segment">
+      <div repeat.for="tweet of tweets" class="ui raised card">
+        <div class="content">
+          <div class="meta">
+            <i class="calendar icon"></i> <span class="category">${tweet.tweetDate}</span>
+          </div>
+          <div class="ui center aligned middle aligned description">
+            <img if.bind="tweet.tweetImage" src="${tweet.tweetImage}" class="ui medium image">
+            <p>${tweet.tweetText}</p>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="left floated author">
+            <a href="/view/{{tweetUser._id}}">
+              <img class="ui avatar image" if.bind="tweet.tweetUser.image" src="${tweet.tweetUser.image}">
+              <img class="ui avatar image" else src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
+              ${tweet.tweetUser.firstName} ${tweet.tweetUser.lastName}
+            </a>
+          </div>
+          <div class="right floated">
+            <a href="/deleteSpecificTweet/{{../user.id}}/{{_id}}">
+              <i class="red delete icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <section show.bind="empty" class="ui center aligned segment">
+    You have no tweets yet. Start tweeting now to begin !!
+  </section>
+</template>

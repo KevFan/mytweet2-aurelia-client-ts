@@ -10,8 +10,11 @@ export class LoginStatus {
 }
 
 export class LastestTweetList {
+  empty: boolean;
   tweets: Array<Tweet>;
-  constructor(tweets: Array<Tweet>) {
+
+  constructor(empty: boolean, tweets: Array<Tweet>) {
+    this.empty = empty;
     this.tweets = tweets;
   }
 }
