@@ -1,17 +1,16 @@
 import { inject } from 'aurelia-framework';
-import Fixtures from './fixtures';
 import { LoginStatus } from './messages';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import {  User } from './models';
 import AsyncHttpClient from './async-http-client';
 
 
-@inject(Fixtures, EventAggregator, AsyncHttpClient)
-export class DonationService {
+@inject(EventAggregator, AsyncHttpClient)
+export class TweetService {
   ea: EventAggregator;
   ac: AsyncHttpClient;
 
-  constructor(data, ea, ac) {
+  constructor(ea, ac) {
     this.ea = ea;
     this.ac = ac;
   }

@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
-import { DonationService } from '../services/tweet-service';
+import { TweetService } from '../services/tweet-service';
 
-@inject(DonationService)
+@inject(TweetService)
 export class Signup {
-  donationService: DonationService;
+  tweetService: TweetService;
 
   firstName = 'Marge';
   lastName = 'Simpson';
@@ -11,16 +11,16 @@ export class Signup {
   password = 'secret';
 
   constructor(ds) {
-    this.donationService = ds;
+    this.tweetService = ds;
   }
 
   register(e) {
-    this.donationService.register(
+    this.tweetService.register(
       this.firstName,
       this.lastName,
       this.email,
       this.password,
     );
-    this.donationService.login(this.email, this.password);
+    this.tweetService.login(this.email, this.password);
   }
 }

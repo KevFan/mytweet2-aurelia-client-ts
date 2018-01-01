@@ -1,16 +1,16 @@
-import { DonationService } from '../services/tweet-service';
+import { TweetService } from '../services/tweet-service';
 import { inject } from 'aurelia-framework';
 
-@inject(DonationService)
+@inject(TweetService)
 export class Logout {
-  donationService: DonationService;
+  tweetService: TweetService;
 
-  constructor(donationService: DonationService) {
-    this.donationService = donationService;
+  constructor(tweetService: TweetService) {
+    this.tweetService = tweetService;
   }
 
   logout() {
     console.log('logging out');
-    this.donationService.logout();
+    this.tweetService.logout();
   }
 }

@@ -2,17 +2,17 @@ import { inject, Aurelia } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { LoginStatus } from './services/messages';
-import { DonationService } from './services/tweet-service';
+import { TweetService } from './services/tweet-service';
 
 
-@inject(Aurelia, EventAggregator, DonationService)
+@inject(Aurelia, EventAggregator, TweetService)
 export class App {
   router: Router;
-  ds: DonationService;
+  ts: TweetService;
   au: Aurelia;
 
-  constructor(au: Aurelia, ea: EventAggregator, ds: DonationService) {
-    this.ds = ds;
+  constructor(au: Aurelia, ea: EventAggregator, ts: TweetService) {
+    this.ts = ts;
     this.au = au;
     ea.subscribe(LoginStatus, msg => {
       this.router.navigate('/', { replace: true, trigger: false });
@@ -46,7 +46,7 @@ export class App {
   }
 
   attached() {
-    if (this.ds.isAuthenticated()) {
+    if (this.ts.isAuthenticated()) {
       this.au.setRoot('home').then(() => {
         this.router.navigateToRoute('dashboard');
       });
