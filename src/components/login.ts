@@ -4,7 +4,7 @@ import { DonationService } from '../services/donation-service';
 @inject(DonationService)
 export class Login {
   donationService: DonationService;
-  email = 'marge@simpson.com';
+  email = 'homer@simpson.com';
   password = 'secret';
 
   constructor(ds: DonationService) {
