@@ -1,9 +1,4 @@
-export class TotalUpdate {
-  total: number;
-  constructor(total: number) {
-    this.total = total;
-  }
-}
+import {Tweet} from "./models";
 
 export class LoginStatus {
   status: boolean;
@@ -11,5 +6,12 @@ export class LoginStatus {
   constructor(status: boolean, message:string = '') {
     this.status = status;
     this.message = message;
+  }
+}
+
+export class LastestTweetList {
+  tweets: Array<Tweet>;
+  constructor(tweets: Array<Tweet>) {
+    this.tweets = tweets;
   }
 }
