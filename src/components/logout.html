@@ -1,8 +1,18 @@
 <template>
+  <section class="ui stackable grid basic segment">
+    <aside class="ui middle aligned center aligned six wide column">
+      <i class="ui  massive sign out icon"></i>
+    </aside>
+    <div class="ui ten wide column fluid form">
+      <div class="ui segment">
+        <form submit.delegate="logout($event)">
+          <h3 class="ui header">Are you sure you want to log out?</h3>
 
-  <form submit.delegate="logout($event)" class="ui stacked segment form">
-    <h3 class="ui header">Are you sure you want to log out?</h3>
-    <button class="ui blue submit button">Logout</button>
-  </form>
-
+          <div class="ui center aligned basic segment">
+            <button class="ui blue submit button"><i class="sign out icon"></i>Logout</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 </template>

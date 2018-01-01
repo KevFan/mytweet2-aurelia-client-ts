@@ -1,5 +1,4 @@
 <template>
-
   <section class="ui stackable grid basic segment">
     <aside class="ui middle aligned center aligned six wide column">
       <i class="ui  massive sign in icon"></i>
@@ -9,10 +8,18 @@
         <form submit.delegate="login($event)">
           <h3 class="ui header">Log-in</h3>
           <div class="field">
-            <label>Email</label> <input placeholder="Email" value.bind="email"/>
+            <label>Email</label>
+            <div class="ui input left icon">
+              <i class="mail icon"></i>
+              <input placeholder="Email" value.bind="email"/>
+            </div>
           </div>
           <div class="field">
-            <label>Password</label> <input type="password" value.bind="password"/>
+            <label>Password</label>
+            <div class="ui input left icon">
+              <i class="lock icon"></i>
+              <input type="password" value.bind="password"/>
+            </div>
           </div>
           <div class="ui center aligned basic segment">
             <button class="ui blue submit button"><i class="sign in icon"></i>Login</button>
