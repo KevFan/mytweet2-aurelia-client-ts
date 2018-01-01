@@ -2,8 +2,7 @@ import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import Fixtures from './fixtures';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoginStatus } from './messages';
-import { User } from './models';
+import { LoginStatus} from './messages';
 
 @inject(HttpClient, Fixtures, EventAggregator)
 export default class AsyncHttpClient {
@@ -36,7 +35,7 @@ export default class AsyncHttpClient {
       .then(response => {
         const status = response.content;
         if (status.success) {
-          localStorage.donation = JSON.stringify(response.content);
+          localStorage.mytweet = JSON.stringify(response.content);
           this.http.configure(configuration => {
             configuration.withHeader(
               'Authorization',
@@ -52,7 +51,7 @@ export default class AsyncHttpClient {
   }
 
   clearAuthentication() {
-    localStorage.donation = null;
+    localStorage.mytweet = null;
     this.http.configure(configuration => {
       configuration.withHeader('Authorization', '');
     });
@@ -60,10 +59,10 @@ export default class AsyncHttpClient {
 
   isAuthenticated() {
     let authenticated = false;
-    if (localStorage.donation !== 'null') {
+    if (localStorage.mytweet !== 'null') {
       authenticated = true;
       this.http.configure(http => {
-        const auth = JSON.parse(localStorage.donation);
+        const auth = JSON.parse(localStorage.mytweet);
         http.withHeader('Authorization', 'bearer ' + auth.token);
       });
     }
