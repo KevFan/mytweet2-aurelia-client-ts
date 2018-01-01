@@ -29,3 +29,9 @@ export interface Tweet {
   };
   _id?: string;
 }
+
+export interface Follow {
+  follower: User;
+  following: User;
+  _id?: string;
+}
