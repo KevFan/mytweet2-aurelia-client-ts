@@ -1,10 +1,10 @@
 <template>
-
+  <require from="./date-format"></require>
     <div class="ui centered three doubling stackable cards basic segment">
       <div repeat.for="tweet of tweets" class="ui raised card">
         <div class="content">
           <div class="meta">
-            <i class="calendar icon"></i> <span class="category">${tweet.tweetDate}</span>
+            <i class="calendar icon"></i> <span class="category">${tweet.tweetDate | dateFormat}</span>
           </div>
           <div class="ui center aligned middle aligned description">
             <img if.bind="tweet.tweetImage" src="${tweet.tweetImage}" class="ui medium image">

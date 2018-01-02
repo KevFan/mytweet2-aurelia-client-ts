@@ -89,8 +89,8 @@
             "resources": [
               "semantic.min.css"
             ]
-          }
-
+          },
+          "moment"
         ]
       }
     ],
