@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
-import { Tweet } from '../services/models';
+import { TweetService } from '../../services/tweet-service';
+import { Tweet } from '../../services/models';
 import * as $ from 'jquery';
 
 @inject(TweetService)

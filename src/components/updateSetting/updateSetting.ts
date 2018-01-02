@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
-import { User} from '../services/models';
+import { TweetService } from '../../services/tweet-service';
+import { User} from '../../services/models';
 
 @inject(TweetService)
 export class UpdateSettings {

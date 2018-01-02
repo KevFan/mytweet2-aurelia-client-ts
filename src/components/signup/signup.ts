@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
+import { TweetService } from '../../services/tweet-service';
 
 @inject(TweetService)
 export class Signup {

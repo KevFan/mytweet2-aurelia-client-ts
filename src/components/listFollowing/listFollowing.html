@@ -1,0 +1,9 @@
+<template>
+  <div class="ui segment">
+    <p>Following</p>
+    <a repeat.for="following of followings" click.delegate="viewUser(following.following._id)" data-tooltip="${following.following.firstName} ${following.following.lastName}">
+      <img if.bind="following.following.image" class="ui avatar image" src="${following.following.image}">
+      <img else class="ui avatar image" src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
+    </a>
+  </div>
+</template>

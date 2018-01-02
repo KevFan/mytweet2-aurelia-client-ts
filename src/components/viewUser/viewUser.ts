@@ -1,8 +1,8 @@
 import {inject} from 'aurelia-framework';
-import {TweetService} from '../services/tweet-service';
-import {User} from '../services/models';
+import {TweetService} from '../../services/tweet-service';
+import {User} from '../../services/models';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {UserView} from "../services/messages";
+import {UserView} from "../../services/messages";
 
 @inject(TweetService, EventAggregator)
 export class ViewUser {
@@ -21,6 +21,16 @@ export class ViewUser {
     this.ea.subscribe(UserView, event => {
       this.user = event.user;
       this.tweetService.getAllUserTweets(this.user._id)
+      this.tweetService.getFollowers(this.user._id);
+      this.tweetService.getFollowings(this.user._id);
     });
+  }
+
+  follow(userId: string) {
+    this.tweetService.follow(userId);
+  }
+
+  unFollow(userId: string) {
+    this.tweetService.unFollow(userId);
   }
 }

@@ -30,14 +30,14 @@ export class App {
       {
         route: ['', 'login'],
         name: 'login',
-        moduleId: 'components/login',
+        moduleId: 'components/login/login',
         nav: true,
         title: 'Login',
       },
       {
         route: 'signup',
         name: 'signup',
-        moduleId: 'components/signup',
+        moduleId: 'components/signup/signup',
         nav: true,
         title: 'Signup',
       },
