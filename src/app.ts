@@ -18,7 +18,11 @@ export class App {
       this.router.navigate('/', { replace: true, trigger: false });
       this.router.reset();
       if (msg.status === true) {
-        au.setRoot('home');
+        if (msg.message === 'isAdmin') {
+          au.setRoot('admin');
+        } else {
+          au.setRoot('home');
+        }
       } else {
         au.setRoot('app');
       }

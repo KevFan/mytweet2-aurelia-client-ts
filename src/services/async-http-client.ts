@@ -46,7 +46,17 @@ export default class AsyncHttpClient {
               'bearer ' + response.content.token,
             );
           });
-          this.ea.publish(new LoginStatus(true));
+          let user = response.content.user;
+          // try get an admin using the user id
+          this.http.get('/api/admins/' + user._id).then(res => {
+            // if successfully get a response then the user is an admin
+            if (res) {
+              this.ea.publish(new LoginStatus(true, 'isAdmin'));
+            }
+          }).catch(error => {
+            // will throw error is no response, user is a user
+            this.ea.publish(new LoginStatus(true));
+          });
           this.ea.publish(new CurrentUser(response.content.user));
         }
       })
