@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {TweetService} from '../services/tweet-service';
-import {Tweet, User} from '../services/models';
+import {User} from '../services/models';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {UserView} from "../services/messages";
 
@@ -8,7 +8,6 @@ import {UserView} from "../services/messages";
 export class ViewUser {
   tweetService: TweetService;
   user: User;
-  viewUserTweets: Array<Tweet>
   ea: EventAggregator;
 
   constructor(ts: TweetService, ea: EventAggregator) {
@@ -21,7 +20,7 @@ export class ViewUser {
     this.tweetService.getUser(params.id);
     this.ea.subscribe(UserView, event => {
       this.user = event.user;
-      console.log(this.user);
-    })
+      this.tweetService.getAllUserTweets(this.user._id)
+    });
   }
 }
