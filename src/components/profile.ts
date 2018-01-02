@@ -33,7 +33,7 @@ export class Profile {
   updateUserAndTweets() {
     this.ea.subscribe(CurrentUser, event => {
       this.user = event.user;
-      this.tweetService.getAllTweets();
+      this.tweetService.getAllUserTweets(this.user._id);
     })
   }
 }
