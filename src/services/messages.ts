@@ -42,3 +42,12 @@ export class Followers {
     this.followers = followers;
   }
 }
+
+
+export class Followings {
+  followings: Array<Follow>;
+
+  constructor(followings: Array<Follow>) {
+    this.followings = followings;
+  }
+}
