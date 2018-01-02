@@ -21,6 +21,7 @@ export class ViewUser {
     this.ea.subscribe(UserView, event => {
       this.user = event.user;
       this.tweetService.getAllUserTweets(this.user._id)
+      this.tweetService.getFollowers(this.user._id);
     });
   }
 }
