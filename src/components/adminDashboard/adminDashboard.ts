@@ -33,4 +33,8 @@ export class AdminDashboard {
       });
     });
   }
+
+  deleteAllUsers() {
+    this.tweetService.deleteAllUser();
+  }
 }
