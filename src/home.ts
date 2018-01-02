@@ -1,7 +1,15 @@
 import { RouterConfiguration, Router } from 'aurelia-router';
+import {TweetService} from "./services/tweet-service";
+import {inject} from 'aurelia-framework';
 
+@inject(TweetService)
 export class Home {
   router: Router;
+  tweetService: TweetService;
+
+  constructor(ts: TweetService) {
+    this.tweetService = ts;
+  }
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.map([
@@ -30,5 +38,13 @@ export class Home {
       { route: 'logout', name: 'logout', moduleId: 'components/logout/logout', nav: true, title: 'Logout' }
     ]);
     this.router = router;
+  }
+
+  viewUser(userId) {
+    if (userId === this.tweetService.currentUser._id) {
+      location.assign('#/');
+    } else {
+      location.assign('#/viewUser/' + userId);
+    }
   }
 }

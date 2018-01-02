@@ -17,12 +17,4 @@ export class ListFollowing {
       this.followings = event.followings;
     })
   }
-
-  viewUser(userId) {
-    if (userId === this.tweetService.currentUser._id) {
-      location.assign('#/');
-    } else {
-      location.assign('#/viewUser/' + userId);
-    }
-  }
 }

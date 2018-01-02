@@ -39,12 +39,4 @@ export class TimeLine {
   isCurrentUser(userId: string) {
     return userId === this.tweetService.currentUser._id;
   }
-
-  viewUser(userId) {
-    if (userId === this.tweetService.currentUser._id) {
-      location.assign('#/');
-    } else {
-      location.assign('#/viewUser/' + userId);
-    }
-  }
 }
