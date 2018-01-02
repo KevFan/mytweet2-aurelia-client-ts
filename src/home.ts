@@ -13,6 +13,13 @@ export class Home {
         nav: true,
         title: 'Global Timeline',
       },
+      {
+        route: 'updateSetting',
+        name: 'updateSetting',
+        moduleId: 'components/updateSetting',
+        nav: true,
+        title: 'Settings',
+      },
       { route: 'logout', name: 'logout', moduleId: 'components/logout', nav: true, title: 'Logout' }
     ]);
     this.router = router;

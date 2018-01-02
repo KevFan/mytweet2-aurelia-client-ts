@@ -94,4 +94,11 @@ export class TweetService {
       this.ea.publish(new LastestTweetList(false, this.tweets));
     });
   }
+
+  updateUser(user: User) {
+    this.ac.put('/api/users/' + user._id, user).then(res => {
+      console.log(res.content);
+      this.currentUser = res.content;
+    });
+  }
 }
