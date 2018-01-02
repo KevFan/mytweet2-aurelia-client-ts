@@ -1,4 +1,4 @@
-import {User} from "../services/models";
+import {Tweet, User} from "../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../services/tweet-service";
 import {CurrentUser, LastestTweetList} from "../services/messages";
@@ -11,6 +11,7 @@ export class Dashboard {
   user: User;
   tweetService: TweetService;
   ea: EventAggregator;
+  tweets: Array<Tweet>;
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
@@ -23,6 +24,8 @@ export class Dashboard {
   }
 
   attached() {
+    this.tweetService.getAllUserTweets(this.user._id);
+
     $(document).ready(function () {
       $('.item').on('click', function(){
         // using the attribute data-modal to identify for what modal the button references

@@ -14,15 +14,19 @@ export class TimeLine {
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
-  }
-
-  attached() {
-    this.tweetService.getAllTweets();
     this.ea.subscribe(LastestTweetList, event => {
       this.empty = event.empty;
       this.tweets = event.tweets;
     })
   }
+
+  // attached() {
+  //   this.tweetService.getAllTweets();
+  //   this.ea.subscribe(LastestTweetList, event => {
+  //     this.empty = event.empty;
+  //     this.tweets = event.tweets;
+  //   })
+  // }
 
   deleteTweet(id) {
     this.tweetService.deleteOneTweet(id);

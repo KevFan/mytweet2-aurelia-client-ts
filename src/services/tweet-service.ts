@@ -101,4 +101,11 @@ export class TweetService {
       this.currentUser = res.content;
     });
   }
+
+  getAllUserTweets(userId: string) {
+    this.ac.get('/api/tweets/users/' + userId).then(res => {
+      this.tweets = res.content;
+      this.ea.publish(new LastestTweetList((res.content.length === 0), this.tweets));
+    })
+  }
 }
