@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {LoginStatus, LastestTweetList, CurrentUser, UserView} from './messages';
+import {LoginStatus, LastestTweetList, CurrentUser, UserView, Followers} from './messages';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
@@ -114,6 +114,12 @@ export class TweetService {
     this.ac.get('/api/users/' + userId).then(res => {
       this.viewUser = res.content;
       this.ea.publish(new UserView(res.content));
+    })
+  }
+
+  getFollowers(userId: string) {
+    this.ac.get('/api/follow/followers/' + userId).then(res => {
+      this.ea.publish(new Followers(res.content));
     })
   }
 }

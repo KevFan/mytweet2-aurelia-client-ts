@@ -1,7 +1,7 @@
-import {Tweet, User} from "../../services/models";
+import {Follow, Tweet, User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
-import {CurrentUser, LastestTweetList} from "../../services/messages";
+import {CurrentUser, Followers, LastestTweetList} from "../../services/messages";
 import AsyncHttpClient from "../../services/async-http-client";
 import {inject} from "aurelia-framework";
 import * as $ from 'jquery';
@@ -12,6 +12,7 @@ export class Dashboard {
   tweetService: TweetService;
   ea: EventAggregator;
   tweets: Array<Tweet>;
+  followers: Array<Follow>
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
@@ -26,6 +27,7 @@ export class Dashboard {
   attached() {
     this.tweetService.getAllUserTweets(this.user._id);
     this.tweetService.viewUser = null;
+    this.tweetService.getFollowers(this.user._id);
 
     $(document).ready(function () {
       $('.item').on('click', function(){
