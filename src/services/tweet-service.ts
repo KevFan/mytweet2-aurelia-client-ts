@@ -63,14 +63,14 @@ export class TweetService {
     });
   }
 
-  updateProfilePicture(formData: FormData) {
-    this.ac.put('/api/profilePicture', formData).then(res => {
+  updateProfilePicture(userId: string, formData: FormData) {
+    this.ac.put('/api/profilePicture/' + userId, formData).then(res => {
       this.ea.publish(new CurrentUser(res.content));
     })
   }
 
-  deleteProfilePicture() {
-    this.ac.delete('/api/profilePicture').then(res => {
+  deleteProfilePicture(userId: string) {
+    this.ac.delete('/api/profilePicture/' + userId).then(res => {
       this.ea.publish(new CurrentUser(res.content));
     })
   }

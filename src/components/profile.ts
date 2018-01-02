@@ -18,15 +18,15 @@ export class Profile {
     this.user = ts.currentUser;
   }
 
-  updateProfilePicture() {
+  updateProfilePicture(userId: string) {
     let formData = new FormData();
     formData.append('image', this.picture[0]);
-    this.tweetService.updateProfilePicture(formData);
+    this.tweetService.updateProfilePicture(userId, formData);
     this.updateUserAndTweets();
   }
 
-  deleteProfilePicture() {
-    this.tweetService.deleteProfilePicture();
+  deleteProfilePicture(userId: string) {
+    this.tweetService.deleteProfilePicture(userId);
     this.updateUserAndTweets();
   }
 

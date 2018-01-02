@@ -4,7 +4,7 @@
     <img class="ui middle aligned circular medium image"else src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
     <p>${user.firstName} ${user.lastName}</p>
     <p>${user.email}</p>
-    <form submit.delegate="updateProfilePicture($event)" method="post" enctype="multipart/form-data" style="display:inline">
+    <form submit.delegate="updateProfilePicture(user._id)" method="post" enctype="multipart/form-data" style="display:inline">
       <label for="file" class="circular ui icon blue button">
         <i class="file image outline icon"></i></label>
       <input type="file" id="file" files.bind="picture" style="display:none">
@@ -12,7 +12,7 @@
         <i class="cloud upload icon"></i>
       </button>
     </form>
-    <button class="circular ui icon red button" click.delegate="deleteProfilePicture()">
+    <button class="circular ui icon red button" click.delegate="deleteProfilePicture(user._id)">
       <i class="delete icon"></i></button>
   </div>
 </template>
