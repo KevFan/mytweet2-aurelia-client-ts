@@ -11,6 +11,7 @@ export class TweetService {
   ac: AsyncHttpClient;
   tweets: Array<Tweet> = [];
   currentUser: User;
+  viewUser: User;
 
   constructor(ea, ac) {
     this.ea = ea;
@@ -111,6 +112,7 @@ export class TweetService {
 
   getUser(userId: string) {
     this.ac.get('/api/users/' + userId).then(res => {
+      this.viewUser = res.content;
       this.ea.publish(new UserView(res.content));
     })
   }

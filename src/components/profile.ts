@@ -11,11 +11,21 @@ export class Profile {
   ea: EventAggregator;
   tweetService: TweetService;
   picture;
+  isCurrentUser: boolean;
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
     this.user = ts.currentUser;
+  }
+
+  attached() {
+    if (this.tweetService.viewUser) {
+      this.user = this.tweetService.viewUser;
+      this.isCurrentUser = false;
+    } else {
+      this.isCurrentUser = true;
+    }
   }
 
   updateProfilePicture(userId: string) {

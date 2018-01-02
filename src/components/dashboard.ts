@@ -25,6 +25,7 @@ export class Dashboard {
 
   attached() {
     this.tweetService.getAllUserTweets(this.user._id);
+    this.tweetService.viewUser = null;
 
     $(document).ready(function () {
       $('.item').on('click', function(){
