@@ -51,3 +51,13 @@ export class Followings {
     this.followings = followings;
   }
 }
+
+export class LatestUserList {
+  empty: boolean;
+  users: Array<User>;
+
+  constructor(empty: boolean, users: Array<User>) {
+    this.empty = empty;
+    this.users = users;
+  }
+}

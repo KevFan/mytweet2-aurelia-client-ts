@@ -21,6 +21,7 @@ export class AdminDashboard {
   }
 
   attached() {
+    this.tweetService.getAllUsers();
     $(document).ready(function () {
       $('.item').on('click', function(){
         // using the attribute data-modal to identify for what modal the button references

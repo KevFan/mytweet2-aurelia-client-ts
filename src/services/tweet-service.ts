@@ -1,9 +1,11 @@
 import {inject} from 'aurelia-framework';
-import {LoginStatus, LastestTweetList, CurrentUser, UserView, Followers, Followings} from './messages';
+import {
+  CurrentUser, Followers, Followings, LastestTweetList, LatestUserList, LoginStatus,
+  UserView
+} from './messages';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {Follow, Tweet, User} from './models';
+import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
-import * as _ from 'lodash';
 
 @inject(EventAggregator, AsyncHttpClient)
 export class TweetService {
@@ -142,6 +144,12 @@ export class TweetService {
   unFollow(userId: string) {
     this.ac.delete('/api/follow/' + userId).then(res => {
       this.getFollowers(userId);
+    })
+  }
+
+  getAllUsers() {
+    this.ac.get('/api/users').then(res => {
+      this.ea.publish(new LatestUserList((res.content.length === 0), res.content));
     })
   }
 }

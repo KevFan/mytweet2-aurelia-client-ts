@@ -1,0 +1,28 @@
+<template>
+  <div class="ui container">
+    <div class="ui centered four doubling stackable cards">
+      <div repeat.for="user of users" class="ui raised card">
+        <a href="/viewUser/{{_id}}" class="center aligned content">
+          <div class="description">
+            <img if.bind="user.image" class="ui small circular image" src="${user.image}">
+            <img else class="ui small image" src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
+            <p>${user.firstName} ${user.lastName}</p>
+          </div>
+        </a>
+        <section class="extra center aligned content">
+          <button class="circular ui icon teal button item" data-modal="editUser{{_id}}">
+            <i class="edit icon"></i>
+          </button>
+          <a href="/deleteUser/{{_id}}">
+            <button class="circular ui icon red button">
+              <i class="trash icon"></i>
+            </button>
+          </a>
+        </section>
+      </div>
+    </div>
+    <section if.bind="empty" class="ui center aligned segment">
+      There are no users yet :(
+    </section>
+  </div>
+</template>
