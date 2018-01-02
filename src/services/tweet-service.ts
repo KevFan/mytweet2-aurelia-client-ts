@@ -152,4 +152,10 @@ export class TweetService {
       this.ea.publish(new LatestUserList((res.content.length === 0), res.content));
     })
   }
+
+  deleteOneUser(userId: string) {
+    this.ac.delete('/api/users/' + userId).then(res => {
+      this.getAllUsers();
+    })
+  }
 }

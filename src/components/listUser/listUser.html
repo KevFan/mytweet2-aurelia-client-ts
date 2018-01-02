@@ -13,11 +13,9 @@
           <button class="circular ui icon teal button item" data-modal="editUser{{_id}}">
             <i class="edit icon"></i>
           </button>
-          <a href="/deleteUser/{{_id}}">
-            <button class="circular ui icon red button">
+            <button click.delegate="deleteUser(user._id)" class="circular ui icon red button">
               <i class="trash icon"></i>
             </button>
-          </a>
         </section>
       </div>
     </div>

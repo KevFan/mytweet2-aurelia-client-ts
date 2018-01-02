@@ -20,4 +20,8 @@ export class ListUser {
       this.users = event.users;
     })
   }
+  
+  deleteUser(userId: string) {
+    this.tweetService.deleteOneUser(userId);
+  }
 }
