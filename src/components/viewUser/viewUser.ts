@@ -28,6 +28,9 @@ export class ViewUser {
 
   follow(userId: string) {
     this.tweetService.follow(userId);
-    this.tweetService.getFollowings(this.user._id);
+  }
+
+  unFollow(userId: string) {
+    this.tweetService.unFollow(userId);
   }
 }

@@ -136,4 +136,10 @@ export class TweetService {
       this.getFollowers(userId);
     })
   }
+
+  unFollow(userId: string) {
+    this.ac.delete('/api/follow/' +  userId ).then(res => {
+      this.getFollowers(userId);
+    })
+  }
 }
