@@ -86,4 +86,12 @@ export class TweetService {
       this.getAllTweets();
     })
   }
+
+  addTweet(formData: FormData) {
+    this.ac.post('/api/tweets', formData).then(res => {
+      console.log(res);
+      this.tweets.push(res.content);
+      this.ea.publish(new LastestTweetList(false, this.tweets));
+    });
+  }
 }
