@@ -35,6 +35,8 @@ export class AdminDashboard {
   }
 
   deleteAllUsers() {
+    this.tweetService.deleteAllFollows();
+    this.tweetService.deleteAllTweets();
     this.tweetService.deleteAllUser();
   }
 }

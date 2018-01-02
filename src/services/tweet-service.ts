@@ -159,13 +159,13 @@ export class TweetService {
     })
   }
 
-  removeAllUserFollowers(userId: string) {
+  deleteAllUserFollowers(userId: string) {
     this.ac.delete('/api/follow/followers/' + userId).then(res => {
       console.log('Removed all user followers');
     })
   }
 
-  removeAllUserFollowings(userId: string) {
+  deleteAllUserFollowings(userId: string) {
     this.ac.delete('/api/follow/following/' + userId).then(res => {
       console.log('Removed all user followings');
     })
@@ -175,6 +175,18 @@ export class TweetService {
     this.ac.delete('/api/users').then(res => {
       console.log('Removed all users');
       this.getAllUsers();
+    })
+  }
+
+  deleteAllFollows() {
+    this.ac.delete('/api/follow').then(res => {
+      console.log('Removed all follows')
+    })
+  }
+
+  deleteAllTweets() {
+    this.ac.delete('/api/tweets').then(res => {
+      console.log('Removed all tweets');
     })
   }
 }
