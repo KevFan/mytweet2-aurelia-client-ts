@@ -22,6 +22,7 @@ export class ViewUser {
       this.user = event.user;
       this.tweetService.getAllUserTweets(this.user._id)
       this.tweetService.getFollowers(this.user._id);
+      this.tweetService.getFollowings(this.user._id);
     });
   }
 }
