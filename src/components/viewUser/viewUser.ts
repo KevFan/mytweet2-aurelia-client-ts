@@ -25,4 +25,9 @@ export class ViewUser {
       this.tweetService.getFollowings(this.user._id);
     });
   }
+
+  follow(userId: string) {
+    this.tweetService.follow(userId);
+    this.tweetService.getFollowings(this.user._id);
+  }
 }
