@@ -13,7 +13,7 @@
         </div>
         <div class="extra content">
           <div class="left floated author">
-            <a href="/view/${tweet.tweetUser._id}">
+            <a click.delegate="viewUser(tweet.tweetUser._id)">
               <img class="ui avatar image" if.bind="tweet.tweetUser.image" src="${tweet.tweetUser.image}">
               <img class="ui avatar image" else src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png">
               ${tweet.tweetUser.firstName} ${tweet.tweetUser.lastName}

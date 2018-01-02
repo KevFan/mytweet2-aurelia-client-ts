@@ -20,6 +20,13 @@ export class Home {
         nav: true,
         title: 'Settings',
       },
+      {
+        route: 'viewUser/:id',
+        name: 'viewUser',
+        moduleId: 'components/viewUser',
+        nav: false,
+        title: 'View User',
+      },
       { route: 'logout', name: 'logout', moduleId: 'components/logout', nav: true, title: 'Logout' }
     ]);
     this.router = router;

@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {LoginStatus, LastestTweetList, CurrentUser} from './messages';
+import {LoginStatus, LastestTweetList, CurrentUser, UserView} from './messages';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
@@ -106,6 +106,12 @@ export class TweetService {
     this.ac.get('/api/tweets/users/' + userId).then(res => {
       this.tweets = res.content;
       this.ea.publish(new LastestTweetList((res.content.length === 0), this.tweets));
+    })
+  }
+
+  getUser(userId: string) {
+    this.ac.get('/api/users/' + userId).then(res => {
+      this.ea.publish(new UserView(res.content));
     })
   }
 }

@@ -26,3 +26,11 @@ export class CurrentUser {
     this.user = user;
   }
 }
+
+export class UserView {
+  user: User;
+
+  constructor(user: User) {
+    this.user = user;
+  }
+}
