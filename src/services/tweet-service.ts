@@ -3,7 +3,7 @@ import {LoginStatus, LastestTweetList, CurrentUser, UserView, Followers, Followi
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Follow, Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
-
+import * as _ from 'lodash';
 
 @inject(EventAggregator, AsyncHttpClient)
 export class TweetService {
@@ -16,13 +16,12 @@ export class TweetService {
   constructor(ea, ac) {
     this.ea = ea;
     this.ac = ac;
+    this.ea.subscribe(LastestTweetList, event => {
+      this.tweets = event.tweets;
+    });
   }
 
-
-  register(firstName: string,
-           lastName: string,
-           email: string,
-           password: string,) {
+  register(firstName: string, lastName: string, email: string, password: string,) {
     const newUser = {
       firstName: firstName,
       lastName: lastName,
@@ -58,7 +57,6 @@ export class TweetService {
     this.ac.get('/api/tweets').then(res => {
       console.log(res.content);
       if (res.content) {
-        this.tweets = res.content;
         this.ea.publish(new LastestTweetList((res.content.length === 0), res.content));
       }
     });
@@ -78,13 +76,17 @@ export class TweetService {
 
   deleteOneTweet(id) {
     this.ac.delete('/api/tweets/' + id).then(res => {
-      this.getAllTweets();
+      console.log('Deleted tweet: ' + id, res);
+      let removedTweetList = this.tweets.filter(tweet => {
+        return tweet._id !== id;
+      });
+      this.ea.publish(new LastestTweetList((removedTweetList.length === 0), removedTweetList));
     })
   }
 
   deleteAllUserTweets(userid) {
-    this.ac.delete('/api/tweets/users/' + userid).then( res => {
-      this.getAllTweets();
+    this.ac.delete('/api/tweets/users/' + userid).then(res => {
+      this.getAllUserTweets(this.currentUser._id);
     })
   }
 
@@ -131,14 +133,14 @@ export class TweetService {
   }
 
   follow(userId: string) {
-    this.ac.post('/api/follow', {following: userId }).then(res => {
+    this.ac.post('/api/follow', {following: userId}).then(res => {
       console.log('New follow: ', res.content);
       this.getFollowers(userId);
     })
   }
 
   unFollow(userId: string) {
-    this.ac.delete('/api/follow/' +  userId ).then(res => {
+    this.ac.delete('/api/follow/' + userId).then(res => {
       this.getFollowers(userId);
     })
   }
