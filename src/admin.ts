@@ -5,7 +5,8 @@ export class Admin {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.map([
-      { route: ['', 'dashboard'], name: 'dashboard', moduleId: 'components/dashboard/dashboard', nav: true, title: 'Dashboard' },
+      { route: ['', 'adminDashboard'], name: 'adminDashboard', moduleId: 'components/adminDashboard/adminDashboard',
+        nav: true, title: 'Admin Dashboard' },
       // {
       //   route: 'globalTimeLine',
       //   name: 'globalTimeLine',
