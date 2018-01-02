@@ -7,9 +7,9 @@ export class Home {
     config.map([
       { route: ['', 'dashboard'], name: 'dashboard', moduleId: 'components/dashboard', nav: true, title: 'Dashboard' },
       {
-        route: 'listTweet',
-        name: 'listTweet',
-        moduleId: 'components/listTweet',
+        route: 'globalTimeLine',
+        name: 'globalTimeLine',
+        moduleId: 'components/globalTimeLine',
         nav: true,
         title: 'Global Timeline',
       },
