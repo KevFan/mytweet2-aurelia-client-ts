@@ -1,14 +1,14 @@
-import {Follow, User} from "../../services/models";
+import {Follow} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
-import {CurrentUser, Followers} from "../../services/messages";
+import {Followers} from "../../services/messages";
 import {inject} from "aurelia-framework";
 
 @inject(TweetService, EventAggregator)
 export class ListFollower {
   ea: EventAggregator;
   tweetService: TweetService;
-  followers: Array<Follow>
+  followers: Array<Follow>;
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
