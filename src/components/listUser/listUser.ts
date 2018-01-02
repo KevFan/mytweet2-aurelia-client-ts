@@ -22,6 +22,9 @@ export class ListUser {
   }
   
   deleteUser(userId: string) {
+    this.tweetService.removeAllUserFollowers(userId);
+    this.tweetService.removeAllUserFollowings(userId);
+    this.tweetService.deleteAllUserTweets(userId);
     this.tweetService.deleteOneUser(userId);
   }
 }

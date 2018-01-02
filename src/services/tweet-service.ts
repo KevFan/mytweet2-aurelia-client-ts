@@ -158,4 +158,16 @@ export class TweetService {
       this.getAllUsers();
     })
   }
+
+  removeAllUserFollowers(userId: string) {
+    this.ac.delete('/api/follow/followers/' + userId).then(res => {
+      console.log('Removed all user followers');
+    })
+  }
+
+  removeAllUserFollowings(userId: string) {
+    this.ac.delete('/api/follow/following/' + userId).then(res => {
+      console.log('Removed all user followings');
+    })
+  }
 }
