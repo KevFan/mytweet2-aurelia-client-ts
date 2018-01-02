@@ -31,4 +31,8 @@ export class TimeLine {
       this.tweets = event.tweets;
     })
   }
+
+  isCurrentUser(userId: string) {
+    return userId === this.tweetService.currentUser._id;
+  }
 }
