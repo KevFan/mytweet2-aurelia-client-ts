@@ -1,8 +1,8 @@
 import { inject } from 'aurelia-framework';
-import { TweetService } from '../services/tweet-service';
-import { Tweet } from '../services/models';
+import { TweetService } from '../../services/tweet-service';
+import { Tweet } from '../../services/models';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LastestTweetList } from '../services/messages';
+import { LastestTweetList } from '../../services/messages';
 
 @inject(TweetService, EventAggregator)
 export class TimeLine {

@@ -1,8 +1,8 @@
 import {inject} from 'aurelia-framework';
-import {TweetService} from '../services/tweet-service';
-import {User} from '../services/models';
+import {TweetService} from '../../services/tweet-service';
+import {User} from '../../services/models';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {UserView} from "../services/messages";
+import {UserView} from "../../services/messages";
 
 @inject(TweetService, EventAggregator)
 export class ViewUser {

@@ -1,8 +1,8 @@
-import {Tweet, User} from "../services/models";
+import {Tweet, User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
-import {TweetService} from "../services/tweet-service";
-import {CurrentUser, LastestTweetList} from "../services/messages";
-import AsyncHttpClient from "../services/async-http-client";
+import {TweetService} from "../../services/tweet-service";
+import {CurrentUser, LastestTweetList} from "../../services/messages";
+import AsyncHttpClient from "../../services/async-http-client";
 import {inject} from "aurelia-framework";
 import * as $ from 'jquery';
 
