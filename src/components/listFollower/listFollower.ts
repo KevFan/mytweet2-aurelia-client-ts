@@ -5,7 +5,7 @@ import {CurrentUser, Followers} from "../../services/messages";
 import {inject} from "aurelia-framework";
 
 @inject(TweetService, EventAggregator)
-export class Profile {
+export class ListFollower {
   ea: EventAggregator;
   tweetService: TweetService;
   followers: Array<Follow>
@@ -19,6 +19,10 @@ export class Profile {
   }
 
   viewUser(userId) {
-    location.assign('#/viewUser/' + userId);
+    if (userId === this.tweetService.currentUser._id) {
+      location.assign('#/');
+    } else {
+      location.assign('#/viewUser/' + userId);
+    }
   }
 }
