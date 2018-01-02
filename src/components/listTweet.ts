@@ -40,7 +40,11 @@ export class TimeLine {
     return userId === this.tweetService.currentUser._id;
   }
 
-  viewUser(params) {
-    location.assign('#/viewUser/' + params);
+  viewUser(userId) {
+    if (userId === this.tweetService.currentUser._id) {
+      location.assign('#/');
+    } else {
+      location.assign('#/viewUser/' + userId);
+    }
   }
 }
