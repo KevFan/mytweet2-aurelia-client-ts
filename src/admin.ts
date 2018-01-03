@@ -15,13 +15,13 @@ export class Admin {
     config.map([
       { route: ['', 'adminDashboard'], name: 'adminDashboard', moduleId: 'components/adminDashboard/adminDashboard',
         nav: true, title: 'Admin Dashboard' },
-      // {
-      //   route: 'globalTimeLine',
-      //   name: 'globalTimeLine',
-      //   moduleId: 'components/globalTimeLine/globalTimeLine',
-      //   nav: true,
-      //   title: 'Global Timeline',
-      // },
+      {
+        route: 'globalTimeLine',
+        name: 'globalTimeLine',
+        moduleId: 'components/globalTimeLine/globalTimeLine',
+        nav: true,
+        title: 'Global Timeline',
+      },
       {
         route: 'updateSetting',
         name: 'updateSetting',

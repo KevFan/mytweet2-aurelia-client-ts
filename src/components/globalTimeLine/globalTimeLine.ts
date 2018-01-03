@@ -9,10 +9,12 @@ export class GlobalTimeLine {
   tweetService: TweetService;
   tweets: Array<Tweet>;
   ea: EventAggregator;
+  isAdmin: boolean;
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
+    this.isAdmin = this.tweetService.isAdmin;
   }
 
   attached() {
