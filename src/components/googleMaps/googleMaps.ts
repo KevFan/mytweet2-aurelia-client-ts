@@ -17,12 +17,16 @@ export class GoogleMaps {
     this.ea.subscribe(LastestTweetList, event => {
       this.tweets = event.tweets;
       for (let tweet of this.tweets) {
-        this.myMarkers.push({
+        if (tweet.marker.coords.longitude !==  0 && tweet.marker.coords.latitude !== 0) {
+          this.myMarkers.push({
             latitude: tweet.marker.coords.latitude,
             longitude: tweet.marker.coords.longitude,
-            infoWindow: {content: tweet.tweetText}
-          }
-        );
+            infoWindow: {
+              content: '<p>' + tweet.tweetUser.firstName  + ' ' + tweet.tweetUser.lastName + '</p><p>' +
+              tweet.tweetDate.toString() + '</p><p>' + tweet.tweetText + '</p>'
+            }
+          })
+        }
       }
       console.log(this.myMarkers);
     })
