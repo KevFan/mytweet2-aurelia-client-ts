@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {
-  CurrentUser, Followers, Followings, LastestTweetList, LatestUserList, LoginStatus,
+  CurrentUser, Followers, Followings, LastestTweetList, LatestFollowList, LatestUserList, LoginStatus,
   UserView
 } from './messages';
 import {EventAggregator} from 'aurelia-event-aggregator';
@@ -207,6 +207,12 @@ export class TweetService {
     this.ac.put('/api/admins/' + admin._id, admin).then(res => {
       console.log('Update admin: ', res.content);
       this.currentUser = res.content;
+    })
+  }
+
+  getAllFollows() {
+    this.ac.get('/api/follow').then(res => {
+      this.ea.publish(new LatestFollowList(res.content));
     })
   }
 }
