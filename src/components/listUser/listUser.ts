@@ -2,7 +2,8 @@ import {TweetService} from "../../services/tweet-service";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {inject} from "aurelia-framework";
 import {User} from "../../services/models";
-import {LatestUserList} from "../../services/messages";
+import {LatestUserList, UserView} from "../../services/messages";
+import * as $ from 'jquery';
 
 @inject(TweetService, EventAggregator)
 
@@ -26,5 +27,12 @@ export class ListUser {
     this.tweetService.deleteAllUserFollowings(userId);
     this.tweetService.deleteAllUserTweets(userId);
     this.tweetService.deleteOneUser(userId);
+  }
+
+  editUser(user: User) {
+    console.log(user);
+    $('#editUser'+user._id).modal(
+      'show'
+    );
   }
 }

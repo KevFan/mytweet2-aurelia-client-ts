@@ -114,7 +114,9 @@ export class TweetService {
   updateUser(user: User) {
     this.ac.put('/api/users/' + user._id, user).then(res => {
       console.log(res.content);
-      this.currentUser = res.content;
+      if (!this.isAdmin) {
+        this.currentUser = res.content;
+      }
     });
   }
 
