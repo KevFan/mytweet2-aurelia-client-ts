@@ -15,6 +15,7 @@ export class TweetService {
   users: Array<User> = [];
   currentUser: User;
   viewUser: User;
+  isAdmin: boolean;
 
   constructor(ea, ac) {
     this.ea = ea;
@@ -24,6 +25,9 @@ export class TweetService {
     });
     this.ea.subscribe(LatestUserList, event => {
       this.users = event.users;
+    });
+    this.ea.subscribe(LoginStatus, event => {
+      this.isAdmin = (event.message === 'isAdmin') ;
     });
   }
 
@@ -194,6 +198,13 @@ export class TweetService {
   deleteAllTweets() {
     this.ac.delete('/api/tweets').then(res => {
       console.log('Removed all tweets');
+    })
+  }
+
+  updateAdmin(admin) {
+    this.ac.put('/api/admins/' + admin._id, admin).then(res => {
+      console.log('Update admin: ', res.content);
+      this.currentUser = res.content;
     })
   }
 }
