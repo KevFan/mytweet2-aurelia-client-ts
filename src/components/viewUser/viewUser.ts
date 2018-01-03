@@ -9,10 +9,12 @@ export class ViewUser {
   tweetService: TweetService;
   user: User;
   ea: EventAggregator;
+  isAdmin: boolean;
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
+    this.isAdmin = this.tweetService.isAdmin;
   }
 
   activate(params) {

@@ -20,7 +20,7 @@
             </a>
           </div>
 
-          <div if.bind="isCurrentUser(tweet.tweetUser._id)" class="right floated">
+          <div if.bind="isCurrentUser(tweet.tweetUser._id) || isAdmin" class="right floated">
             <a click.delegate="deleteTweet(tweet._id)">
               <i class="red delete icon"></i>
             </a>
