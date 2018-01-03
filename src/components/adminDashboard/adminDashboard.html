@@ -9,27 +9,14 @@
     </button>
   </section>
   <section class="ui stackable grid basic segment">
-    <!--<div class="center aligned four wide column">-->
-      <!--<compose view-model="../profile/profile"></compose>-->
-      <!--<div class="ui divider"></div>-->
-      <!--<compose view-model="../listFollower/listFollower"></compose>-->
-      <!--<div class="ui divider"></div>-->
-      <!--<compose view-model="../listFollowing/listFollowing"></compose>-->
-    <!--</div>-->
-    <!--<div class="twelve wide column">-->
-      <!--<div class="ui center aligned basic segment">-->
-        <!--<button class="circular ui icon blue button item" data-modal="addTweet">-->
-          <!--<i class="plus icon"></i>-->
-        <!--</button>-->
-        <!--<button click.delegate="deleteAllUserTweets(user._id)" class="circular ui icon red button">-->
-          <!--<i class="trash icon"></i>-->
-        <!--</button>-->
-      <!--</div>-->
-      <!--<compose view-model="../addTweet/addTweet"></compose>-->
-      <!--<compose view-model="../listTweet/listTweet"></compose>-->
-    <!--</div>-->
-
     <compose view-model="../listUser/listUser"></compose>
+  </section>
+
+  <section class="ui modal" id="addUser"> <i class="close icon"></i>
+    <header class="header">Add new user</header>
+    <div class="ui content form">
+      <compose view-model="../signup/signup"></compose>
+    </div>
   </section>
 
 </template>

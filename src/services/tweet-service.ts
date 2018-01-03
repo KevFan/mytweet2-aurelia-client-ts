@@ -12,6 +12,7 @@ export class TweetService {
   ea: EventAggregator;
   ac: AsyncHttpClient;
   tweets: Array<Tweet> = [];
+  users: Array<User> = [];
   currentUser: User;
   viewUser: User;
 
@@ -20,6 +21,9 @@ export class TweetService {
     this.ac = ac;
     this.ea.subscribe(LastestTweetList, event => {
       this.tweets = event.tweets;
+    });
+    this.ea.subscribe(LatestUserList, event => {
+      this.users = event.users;
     });
   }
 
@@ -32,6 +36,8 @@ export class TweetService {
     };
     this.ac.post('/api/users', newUser).then(res => {
       console.log(res.content);
+      this.users.push(res.content);
+      this.ea.publish(new LatestUserList(false, this.users));
     });
   }
 
@@ -47,6 +53,7 @@ export class TweetService {
   }
 
   logout() {
+    this.currentUser = null;
     this.ac.clearAuthentication();
     this.ea.publish(new LoginStatus(false));
   }
