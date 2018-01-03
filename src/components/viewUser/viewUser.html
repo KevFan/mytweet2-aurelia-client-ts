@@ -8,7 +8,10 @@
       <compose view-model="../listFollowing/listFollowing"></compose>
     </div>
     <div class="twelve wide column">
-      <div class="ui middle aligned center aligned basic segment">
+      <div if.bind="isAdmin" class="ui middle aligned center aligned basic segment">
+        <compose view-model="../deleteAllUserTweet/deleteAllUserTweet" model.bind="user"></compose>
+      </div>
+      <div else class="ui middle aligned center aligned basic segment">
         <button click.delegate="follow(user._id)" class="circular ui icon teal button item">
           <i class="add user icon"></i>
         </button>
