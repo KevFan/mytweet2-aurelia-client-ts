@@ -99,7 +99,11 @@ export class TweetService {
 
   deleteAllUserTweets(userid) {
     this.ac.delete('/api/tweets/users/' + userid).then(res => {
-      this.getAllUserTweets(this.currentUser._id);
+      if (this.isAdmin) {
+        this.getAllTweets();
+      } else {
+        this.getAllUserTweets(this.currentUser._id);
+      }
     })
   }
 
@@ -175,12 +179,14 @@ export class TweetService {
   deleteAllUserFollowers(userId: string) {
     this.ac.delete('/api/follow/followers/' + userId).then(res => {
       console.log('Removed all user followers');
+      this.getAllFollows();
     })
   }
 
   deleteAllUserFollowings(userId: string) {
     this.ac.delete('/api/follow/following/' + userId).then(res => {
       console.log('Removed all user followings');
+      this.getAllFollows();
     })
   }
 

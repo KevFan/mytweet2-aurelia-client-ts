@@ -1,5 +1,4 @@
 <template>
-  Hi ${user.firstName}
   <section class="ui center aligned basic segment">
     <button class="circular ui icon blue button item" data-modal="addUser">
       <i class="plus icon"></i>
@@ -8,7 +7,9 @@
       <i class="trash icon"></i>
     </button>
   </section>
+
   <compose view-model="../adminStats/adminStats"></compose>
+  <div class="ui divider"></div>
 
   <section class="ui stackable grid basic segment">
     <compose view-model="../listUser/listUser"></compose>
