@@ -1,0 +1,25 @@
+<template>
+  <section class="ui center aligned basic segment">
+    <button class="circular ui icon blue button item" data-modal="addUser">
+      <i class="plus icon"></i>
+    </button>
+    <button click.delegate="deleteAllUsers($event)" class="circular ui icon red button">
+      <i class="trash icon"></i>
+    </button>
+  </section>
+
+  <compose view-model="../adminStats/adminStats"></compose>
+  <div class="ui divider"></div>
+
+  <section class="ui stackable grid basic segment">
+    <compose view-model="../listUser/listUser"></compose>
+  </section>
+
+  <section class="ui modal" id="addUser"> <i class="close icon"></i>
+    <header class="header">Add new user</header>
+    <div class="ui content form">
+      <compose view-model="../signup/signup"></compose>
+    </div>
+  </section>
+
+</template>

@@ -1,28 +1,37 @@
 import {inject} from 'aurelia-framework';
-import {LoginStatus, LastestTweetList, CurrentUser, UserView} from './messages';
+import {
+  CurrentUser, Followers, Followings, LastestTweetList, LatestFollowList, LatestUserList, LoginStatus,
+  UserView
+} from './messages';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
-
 
 @inject(EventAggregator, AsyncHttpClient)
 export class TweetService {
   ea: EventAggregator;
   ac: AsyncHttpClient;
   tweets: Array<Tweet> = [];
+  users: Array<User> = [];
   currentUser: User;
   viewUser: User;
+  isAdmin: boolean;
 
   constructor(ea, ac) {
     this.ea = ea;
     this.ac = ac;
+    this.ea.subscribe(LastestTweetList, event => {
+      this.tweets = event.tweets;
+    });
+    this.ea.subscribe(LatestUserList, event => {
+      this.users = event.users;
+    });
+    this.ea.subscribe(LoginStatus, event => {
+      this.isAdmin = (event.message === 'isAdmin') ;
+    });
   }
 
-
-  register(firstName: string,
-           lastName: string,
-           email: string,
-           password: string,) {
+  register(firstName: string, lastName: string, email: string, password: string,) {
     const newUser = {
       firstName: firstName,
       lastName: lastName,
@@ -31,6 +40,8 @@ export class TweetService {
     };
     this.ac.post('/api/users', newUser).then(res => {
       console.log(res.content);
+      this.users.push(res.content);
+      this.ea.publish(new LatestUserList(false, this.users));
     });
   }
 
@@ -46,6 +57,7 @@ export class TweetService {
   }
 
   logout() {
+    this.currentUser = null;
     this.ac.clearAuthentication();
     this.ea.publish(new LoginStatus(false));
   }
@@ -58,7 +70,6 @@ export class TweetService {
     this.ac.get('/api/tweets').then(res => {
       console.log(res.content);
       if (res.content) {
-        this.tweets = res.content;
         this.ea.publish(new LastestTweetList((res.content.length === 0), res.content));
       }
     });
@@ -78,13 +89,21 @@ export class TweetService {
 
   deleteOneTweet(id) {
     this.ac.delete('/api/tweets/' + id).then(res => {
-      this.getAllTweets();
+      console.log('Deleted tweet: ' + id, res);
+      let removedTweetList = this.tweets.filter(tweet => {
+        return tweet._id !== id;
+      });
+      this.ea.publish(new LastestTweetList((removedTweetList.length === 0), removedTweetList));
     })
   }
 
   deleteAllUserTweets(userid) {
-    this.ac.delete('/api/tweets/users/' + userid).then( res => {
-      this.getAllTweets();
+    this.ac.delete('/api/tweets/users/' + userid).then(res => {
+      if (this.isAdmin) {
+        this.getAllTweets();
+      } else {
+        this.getAllUserTweets(this.currentUser._id);
+      }
     })
   }
 
@@ -99,7 +118,9 @@ export class TweetService {
   updateUser(user: User) {
     this.ac.put('/api/users/' + user._id, user).then(res => {
       console.log(res.content);
-      this.currentUser = res.content;
+      if (!this.isAdmin) {
+        this.currentUser = res.content;
+      }
     });
   }
 
@@ -114,6 +135,91 @@ export class TweetService {
     this.ac.get('/api/users/' + userId).then(res => {
       this.viewUser = res.content;
       this.ea.publish(new UserView(res.content));
+    })
+  }
+
+  getFollowers(userId: string) {
+    this.ac.get('/api/follow/followers/' + userId).then(res => {
+      this.ea.publish(new Followers(res.content));
+    })
+  }
+
+
+  getFollowings(userId: string) {
+    this.ac.get('/api/follow/following/' + userId).then(res => {
+      this.ea.publish(new Followings(res.content));
+    })
+  }
+
+  follow(userId: string) {
+    this.ac.post('/api/follow', {following: userId}).then(res => {
+      console.log('New follow: ', res.content);
+      this.getFollowers(userId);
+    })
+  }
+
+  unFollow(userId: string) {
+    this.ac.delete('/api/follow/' + userId).then(res => {
+      this.getFollowers(userId);
+    })
+  }
+
+  getAllUsers() {
+    this.ac.get('/api/users').then(res => {
+      this.ea.publish(new LatestUserList((res.content.length === 0), res.content));
+    })
+  }
+
+  deleteOneUser(userId: string) {
+    this.ac.delete('/api/users/' + userId).then(res => {
+      this.getAllUsers();
+    })
+  }
+
+  deleteAllUserFollowers(userId: string) {
+    this.ac.delete('/api/follow/followers/' + userId).then(res => {
+      console.log('Removed all user followers');
+      this.getAllFollows();
+    })
+  }
+
+  deleteAllUserFollowings(userId: string) {
+    this.ac.delete('/api/follow/following/' + userId).then(res => {
+      console.log('Removed all user followings');
+      this.getAllFollows();
+    })
+  }
+
+  deleteAllUser() {
+    this.ac.delete('/api/users').then(res => {
+      console.log('Removed all users');
+      this.getAllUsers();
+    })
+  }
+
+  deleteAllFollows() {
+    this.ac.delete('/api/follow').then(res => {
+      console.log('Removed all follows')
+    })
+  }
+
+  deleteAllTweets() {
+    this.ac.delete('/api/tweets').then(res => {
+      console.log('Removed all tweets');
+      this.getAllTweets();
+    })
+  }
+
+  updateAdmin(admin) {
+    this.ac.put('/api/admins/' + admin._id, admin).then(res => {
+      console.log('Update admin: ', res.content);
+      this.currentUser = res.content;
+    })
+  }
+
+  getAllFollows() {
+    this.ac.get('/api/follow').then(res => {
+      this.ea.publish(new LatestFollowList(res.content));
     })
   }
 }

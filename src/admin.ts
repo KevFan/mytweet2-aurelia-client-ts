@@ -3,7 +3,7 @@ import {TweetService} from "./services/tweet-service";
 import {inject} from 'aurelia-framework';
 
 @inject(TweetService)
-export class Home {
+export class Admin {
   router: Router;
   tweetService: TweetService;
 
@@ -13,7 +13,8 @@ export class Home {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.map([
-      { route: ['', 'dashboard'], name: 'dashboard', moduleId: 'components/dashboard/dashboard', nav: true, title: 'Dashboard' },
+      { route: ['', 'adminDashboard'], name: 'adminDashboard', moduleId: 'components/adminDashboard/adminDashboard',
+        nav: true, title: 'Admin Dashboard' },
       {
         route: 'globalTimeLine',
         name: 'globalTimeLine',
@@ -33,7 +34,7 @@ export class Home {
         name: 'viewUser',
         moduleId: 'components/viewUser/viewUser',
         nav: false,
-        title: 'View User',
+        title: 'Admin User',
       },
       { route: 'logout', name: 'logout', moduleId: 'components/logout/logout', nav: true, title: 'Logout' }
     ]);

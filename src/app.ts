@@ -18,7 +18,11 @@ export class App {
       this.router.navigate('/', { replace: true, trigger: false });
       this.router.reset();
       if (msg.status === true) {
-        au.setRoot('home');
+        if (msg.message === 'isAdmin') {
+          au.setRoot('admin');
+        } else {
+          au.setRoot('home');
+        }
       } else {
         au.setRoot('app');
       }
@@ -30,14 +34,14 @@ export class App {
       {
         route: ['', 'login'],
         name: 'login',
-        moduleId: 'components/login',
+        moduleId: 'components/login/login',
         nav: true,
         title: 'Login',
       },
       {
         route: 'signup',
         name: 'signup',
-        moduleId: 'components/signup',
+        moduleId: 'components/signup/signup',
         nav: true,
         title: 'Signup',
       },

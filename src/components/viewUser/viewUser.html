@@ -1,0 +1,25 @@
+<template>
+  <section class="ui stackable grid basic segment">
+    <div class="center aligned four wide column">
+      <compose view-model="../profile/profile"></compose>
+      <div class="ui divider"></div>
+      <compose view-model="../listFollower/listFollower"></compose>
+      <div class="ui divider"></div>
+      <compose view-model="../listFollowing/listFollowing"></compose>
+    </div>
+    <div class="twelve wide column">
+      <div if.bind="isAdmin" class="ui middle aligned center aligned basic segment">
+        <compose view-model="../deleteAllUserTweet/deleteAllUserTweet" model.bind="user"></compose>
+      </div>
+      <div else class="ui middle aligned center aligned basic segment">
+        <button click.delegate="follow(user._id)" class="circular ui icon teal button item">
+          <i class="add user icon"></i>
+        </button>
+        <button click.delegate="unFollow(user._id)" class="circular ui icon red button">
+          <i class="remove user icon"></i>
+        </button>
+      </div>
+      <compose view-model="../listTweet/listTweet"></compose>
+    </div>
+  </section>
+</template>

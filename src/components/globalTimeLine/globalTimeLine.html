@@ -1,0 +1,8 @@
+<template>
+  <section if.bind="isAdmin" class="ui center aligned basic segment">
+    <button click.delegate="deleteAllTweets($event)" class="circular ui icon red button">
+      <i class="trash icon"></i>
+    </button>
+  </section>
+  <compose view-model="../listTweet/listTweet"></compose>
+</template>
