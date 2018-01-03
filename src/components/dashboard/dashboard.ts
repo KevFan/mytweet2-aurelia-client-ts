@@ -1,8 +1,6 @@
-import {Follow, Tweet, User} from "../../services/models";
+import {User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
-import {CurrentUser, Followers, LastestTweetList} from "../../services/messages";
-import AsyncHttpClient from "../../services/async-http-client";
 import {inject} from "aurelia-framework";
 import * as $ from 'jquery';
 
@@ -11,8 +9,6 @@ export class Dashboard {
   user: User;
   tweetService: TweetService;
   ea: EventAggregator;
-  tweets: Array<Tweet>;
-  followers: Array<Follow>
 
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
