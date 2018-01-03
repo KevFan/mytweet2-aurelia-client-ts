@@ -15,12 +15,16 @@ export class GlobalTimeLine {
     this.tweetService = ts;
     this.ea = ea;
     this.isAdmin = this.tweetService.isAdmin;
+    this.ea.subscribe(LastestTweetList, event => {
+      this.tweets = event.tweets;
+    })
   }
 
   attached() {
     this.tweetService.getAllTweets();
-    this.ea.subscribe(LastestTweetList, event => {
-      this.tweets = event.tweets;
-    })
+  }
+
+  deleteAllTweets() {
+    this.tweetService.deleteAllTweets();
   }
 }

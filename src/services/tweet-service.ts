@@ -206,6 +206,7 @@ export class TweetService {
   deleteAllTweets() {
     this.ac.delete('/api/tweets').then(res => {
       console.log('Removed all tweets');
+      this.getAllTweets();
     })
   }
 
