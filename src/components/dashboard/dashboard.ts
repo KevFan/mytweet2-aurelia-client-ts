@@ -21,10 +21,11 @@ export class Dashboard {
   }
 
   attached() {
-    this.tweetService.getAllUserTweets(this.user._id);
+    // this.tweetService.getAllUserTweets(this.user._id);
     this.tweetService.viewUser = null;
     this.tweetService.getFollowers(this.user._id);
     this.tweetService.getFollowings(this.user._id);
+    this.tweetService.getAllUserFollowingTweets();
 
     $(document).ready(function () {
       $('.item').on('click', function(){
