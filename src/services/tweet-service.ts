@@ -222,4 +222,11 @@ export class TweetService {
       this.ea.publish(new LatestFollowList(res.content));
     })
   }
+
+  getAllUserFollowingTweets() {
+    this.ac.get('/api/tweets/following').then(res => {
+      this.ea.publish(new LastestTweetList((res.content.length === 0), res.content));
+      console.log(res.content);
+    })
+  }
 }
