@@ -7,6 +7,9 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {Tweet, User} from './models';
 import AsyncHttpClient from './async-http-client';
 
+/**
+ * Tweet Service to contain all calls to api
+ */
 @inject(EventAggregator, AsyncHttpClient)
 export class TweetService {
   ea: EventAggregator;
@@ -17,7 +20,10 @@ export class TweetService {
   viewUser: User;
   isAdmin: boolean;
 
-  constructor(ea, ac) {
+  /**
+   * Constructor for tweet service
+   */
+  constructor(ea: EventAggregator, ac: AsyncHttpClient) {
     this.ea = ea;
     this.ac = ac;
     this.ea.subscribe(LastestTweetList, event => {
@@ -27,10 +33,17 @@ export class TweetService {
       this.users = event.users;
     });
     this.ea.subscribe(LoginStatus, event => {
-      this.isAdmin = (event.message === 'isAdmin') ;
+      this.isAdmin = (event.message === 'isAdmin');
     });
   }
 
+  /**
+   * Register new user
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} email
+   * @param {string} password
+   */
   register(firstName: string, lastName: string, email: string, password: string,) {
     const newUser = {
       firstName: firstName,
@@ -45,6 +58,11 @@ export class TweetService {
     });
   }
 
+  /**
+   * Login a user/admin
+   * @param email
+   * @param password
+   */
   login(email, password) {
     const user = {
       email: email,
@@ -56,16 +74,26 @@ export class TweetService {
     })
   }
 
+  /**
+   * Logout user/admin
+   */
   logout() {
     this.currentUser = null;
     this.ac.clearAuthentication();
     this.ea.publish(new LoginStatus(false));
   }
 
+  /**
+   * Return if user from previous session has logged out
+   * @returns {boolean}
+   */
   isAuthenticated() {
     return this.ac.isAuthenticated();
   }
 
+  /**
+   * Get all tweets
+   */
   getAllTweets() {
     this.ac.get('/api/tweets').then(res => {
       console.log(res.content);
@@ -75,18 +103,31 @@ export class TweetService {
     });
   }
 
+  /**
+   * Update profile picture of user
+   * @param {string} userId
+   * @param {FormData} formData containing picture
+   */
   updateProfilePicture(userId: string, formData: FormData) {
     this.ac.put('/api/profilePicture/' + userId, formData).then(res => {
       this.ea.publish(new CurrentUser(res.content));
     })
   }
 
+  /**
+   * Delete User profile picture
+   * @param {string} userId
+   */
   deleteProfilePicture(userId: string) {
     this.ac.delete('/api/profilePicture/' + userId).then(res => {
       this.ea.publish(new CurrentUser(res.content));
     })
   }
 
+  /**
+   * Delete single tweet by id
+   * @param id Tweet id
+   */
   deleteOneTweet(id) {
     this.ac.delete('/api/tweets/' + id).then(res => {
       console.log('Deleted tweet: ' + id, res);
@@ -97,6 +138,10 @@ export class TweetService {
     })
   }
 
+  /**
+   * Delete all user tweets by user id
+   * @param userid Id of user
+   */
   deleteAllUserTweets(userid) {
     this.ac.delete('/api/tweets/users/' + userid).then(res => {
       if (this.isAdmin) {
@@ -107,6 +152,10 @@ export class TweetService {
     })
   }
 
+  /**
+   * Add tweet
+   * @param {FormData} formData containing tweet text and image if any
+   */
   addTweet(formData: FormData) {
     this.ac.post('/api/tweets', formData).then(res => {
       console.log(res);
@@ -115,6 +164,10 @@ export class TweetService {
     });
   }
 
+  /**
+   * Update user
+   * @param {User} user with updated info
+   */
   updateUser(user: User) {
     this.ac.put('/api/users/' + user._id, user).then(res => {
       console.log(res.content);
@@ -124,6 +177,10 @@ export class TweetService {
     });
   }
 
+  /**
+   * Get all user tweets
+   * @param {string} userId User id to get all tweets of
+   */
   getAllUserTweets(userId: string) {
     this.ac.get('/api/tweets/users/' + userId).then(res => {
       this.tweets = res.content;
@@ -131,6 +188,10 @@ export class TweetService {
     })
   }
 
+  /**
+   * Get user by user id
+   * @param {string} userId
+   */
   getUser(userId: string) {
     this.ac.get('/api/users/' + userId).then(res => {
       this.viewUser = res.content;
@@ -138,19 +199,30 @@ export class TweetService {
     })
   }
 
+  /**
+   * Get followers by user id
+   * @param {string} userId
+   */
   getFollowers(userId: string) {
     this.ac.get('/api/follow/followers/' + userId).then(res => {
       this.ea.publish(new Followers(res.content));
     })
   }
 
-
+  /**
+   * Get following by user id
+   * @param {string} userId
+   */
   getFollowings(userId: string) {
     this.ac.get('/api/follow/following/' + userId).then(res => {
       this.ea.publish(new Followings(res.content));
     })
   }
 
+  /**
+   * Follow another user
+   * @param {string} userId User id to follow
+   */
   follow(userId: string) {
     this.ac.post('/api/follow', {following: userId}).then(res => {
       console.log('New follow: ', res.content);
@@ -158,24 +230,39 @@ export class TweetService {
     })
   }
 
+  /**
+   * Un-follow another user
+   * @param {string} userId User Id to un-follow
+   */
   unFollow(userId: string) {
     this.ac.delete('/api/follow/' + userId).then(res => {
       this.getFollowers(userId);
     })
   }
 
+  /**
+   * Get all users
+   */
   getAllUsers() {
     this.ac.get('/api/users').then(res => {
       this.ea.publish(new LatestUserList((res.content.length === 0), res.content));
     })
   }
 
+  /**
+   * Delete one user by user id
+   * @param {string} userId
+   */
   deleteOneUser(userId: string) {
     this.ac.delete('/api/users/' + userId).then(res => {
       this.getAllUsers();
     })
   }
 
+  /**
+   * Remove all followers by user id
+   * @param {string} userId
+   */
   deleteAllUserFollowers(userId: string) {
     this.ac.delete('/api/follow/followers/' + userId).then(res => {
       console.log('Removed all user followers');
@@ -183,6 +270,10 @@ export class TweetService {
     })
   }
 
+  /**
+   * Remove all followings by user id
+   * @param {string} userId
+   */
   deleteAllUserFollowings(userId: string) {
     this.ac.delete('/api/follow/following/' + userId).then(res => {
       console.log('Removed all user followings');
@@ -190,6 +281,9 @@ export class TweetService {
     })
   }
 
+  /**
+   * Delete all users
+   */
   deleteAllUser() {
     this.ac.delete('/api/users').then(res => {
       console.log('Removed all users');
@@ -197,12 +291,18 @@ export class TweetService {
     })
   }
 
+  /**
+   * Delete all follows
+   */
   deleteAllFollows() {
     this.ac.delete('/api/follow').then(res => {
       console.log('Removed all follows')
     })
   }
 
+  /**
+   * Delete all tweets
+   */
   deleteAllTweets() {
     this.ac.delete('/api/tweets').then(res => {
       console.log('Removed all tweets');
@@ -210,6 +310,10 @@ export class TweetService {
     })
   }
 
+  /**
+   * Update an admin
+   * @param admin Admin with updated details
+   */
   updateAdmin(admin) {
     this.ac.put('/api/admins/' + admin._id, admin).then(res => {
       console.log('Update admin: ', res.content);
@@ -217,12 +321,18 @@ export class TweetService {
     })
   }
 
+  /**
+   * Get all follows
+   */
   getAllFollows() {
     this.ac.get('/api/follow').then(res => {
       this.ea.publish(new LatestFollowList(res.content));
     })
   }
 
+  /**
+   * Get all user and following tweets
+   */
   getAllUserFollowingTweets() {
     this.ac.get('/api/tweets/following').then(res => {
       this.ea.publish(new LastestTweetList((res.content.length === 0), res.content));
