@@ -1,9 +1,11 @@
-import { inject } from 'aurelia-framework';
-import { TweetService } from '../../services/tweet-service';
-import { Tweet } from '../../services/models';
+import {inject} from 'aurelia-framework';
+import {TweetService} from '../../services/tweet-service';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {LastestTweetList, LatestFollowList, LatestUserList} from "../../services/messages";
 
+/**
+ * Admin Stats Component
+ */
 @inject(TweetService, EventAggregator)
 export class AdminStats {
   tweetService: TweetService;
@@ -12,6 +14,9 @@ export class AdminStats {
   numTweets = '';
   numFollows = '';
 
+  /**
+   * Constructor for component
+   */
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
@@ -26,6 +31,9 @@ export class AdminStats {
     });
   }
 
+  /**
+   * On component attached, get all users, tweets, and follows
+   */
   attached() {
     this.tweetService.getAllUsers();
     this.tweetService.getAllTweets();
