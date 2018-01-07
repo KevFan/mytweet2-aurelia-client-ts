@@ -1,7 +1,7 @@
 import {User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
-import {CurrentUser} from "../../services/messages";
+import {CurrentUser, UserView} from "../../services/messages";
 import {inject} from "aurelia-framework";
 
 /**
@@ -24,6 +24,10 @@ export class Profile {
     this.tweetService = ts;
     this.ea = ea;
     this.user = ts.currentUser;
+    this.ea.subscribe(UserView, event => {
+      this.user = event.user;
+      this.isCurrentUser = false;
+    });
   }
 
   /**
@@ -31,7 +35,6 @@ export class Profile {
    */
   attached() {
     if (this.tweetService.viewUser) {
-      this.user = this.tweetService.viewUser;
       this.isCurrentUser = false;
     } else {
       this.isCurrentUser = true;
