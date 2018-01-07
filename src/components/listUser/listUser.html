@@ -1,7 +1,7 @@
 <template>
   <div class="ui container">
     <div class="ui centered four doubling stackable cards">
-      <div repeat.for="user of users" class="ui raised card">
+      <div repeat.for="user of users" class="ui link raised card">
         <a click.delegate="viewUser(user._id)" class="center aligned content">
           <div class="description">
             <img if.bind="user.image" class="ui small circular image" src="${user.image}">
