@@ -1,6 +1,6 @@
 <template>
   <section if.bind="isAdmin" class="ui center aligned basic segment">
-    <button click.delegate="deleteAllTweets($event)" class="circular ui icon red button">
+    <button click.delegate="deleteAllTweets($event)" class="circular ui icon red button" data-tooltip="Delete All Tweets">
       <i class="trash icon"></i>
     </button>
   </section>
