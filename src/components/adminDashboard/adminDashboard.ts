@@ -2,6 +2,7 @@ import {Follow, Tweet, User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
 import {inject} from "aurelia-framework";
+import * as $ from 'jquery';
 import {LatestUserList} from "../../services/messages";
 
 /**
@@ -37,6 +38,16 @@ export class AdminDashboard {
   attached() {
     this.tweetService.getAllUsers();
     this.filter = '';
+    $(document).ready(function () {
+      $('.item').on('click', function(){
+        // using the attribute data-modal to identify for what modal the button references
+        let modal = $(this).attr('data-modal');
+        // creating the individual event attached to click over button
+        $('#'+modal+'.modal').modal(
+          'show'
+        );
+      });
+    });
   }
 
   /**

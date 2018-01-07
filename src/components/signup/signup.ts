@@ -27,10 +27,14 @@ export class Signup {
    */
   register() {
     this.tweetService.register(this.firstName, this.lastName, this.email, this.password);
-    if (this.tweetService.currentUser) {
-      $('#addUser').modal('hide');
-    } else {
-      this.tweetService.login(this.email, this.password);
-    }
+    $('#addUser').modal('hide');
+    this.resetFields();
+  }
+
+  resetFields() {
+    this.firstName = '';
+    this.lastName = '';
+    this.email = '';
+    this.password = '';
   }
 }

@@ -55,6 +55,9 @@ export class TweetService {
       console.log(res.content);
       this.users.push(res.content);
       this.ea.publish(new LatestUserList(false, this.users));
+      if (!this.isAdmin) {
+        this.login(email, password);
+      }
     });
   }
 
