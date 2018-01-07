@@ -3,8 +3,12 @@ This project is a client side single page application built using Aurelia and Ty
 
 ## Features
 * Provides all the same features of the server rendered application with the addition of:
-  * Admin can delete all tweets from global timeline view
+  * Admin 
+    * Can delete all or specific tweets from global timeline view
+    * Can search and filter user listing
   * User may delete tweet from any view if owned by current user
+  * Both admin + user
+    * Seach and filter through tweets in global timeline view
 
 ## Pre-requisites
 
