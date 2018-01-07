@@ -10,7 +10,6 @@ import {LastestTweetList} from '../../services/messages';
 @inject(TweetService, EventAggregator)
 export class TimeLine {
   tweetService: TweetService;
-  tweets: Array<Tweet>;
   ea: EventAggregator;
   empty: boolean;
 
@@ -20,10 +19,6 @@ export class TimeLine {
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
-    this.ea.subscribe(LastestTweetList, event => {
-      this.empty = event.empty;
-      this.tweets = event.tweets;
-    })
   }
 
   /**

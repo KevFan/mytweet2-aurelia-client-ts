@@ -1,8 +1,9 @@
-import {User} from "../../services/models";
+import {Tweet, User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
 import {inject} from "aurelia-framework";
 import * as $ from 'jquery';
+import {LastestTweetList, LatestUserList} from "../../services/messages";
 
 /**
  * User Dashboard Component
@@ -12,6 +13,7 @@ export class Dashboard {
   user: User;
   tweetService: TweetService;
   ea: EventAggregator;
+  tweets: Array<Tweet>;
 
   /**
    * Constructor for dashboard component
@@ -20,6 +22,9 @@ export class Dashboard {
     this.tweetService = ts;
     this.ea = ea;
     this.user = ts.currentUser;
+    this.ea.subscribe(LastestTweetList, event => {
+      this.tweets = event.tweets;
+    });
   }
 
   /**

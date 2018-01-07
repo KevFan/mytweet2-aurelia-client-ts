@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {TweetService} from '../../services/tweet-service';
-import {Tweet} from '../../services/models';
+import {Tweet, User} from '../../services/models';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {LastestTweetList} from "../../services/messages";
 
@@ -13,6 +13,8 @@ export class GlobalTimeLine {
   tweets: Array<Tweet>;
   ea: EventAggregator;
   isAdmin: boolean;
+  filter: '';
+  originalTweetList: Array<Tweet>;
 
   /**
    * Constructor for global time line component
@@ -23,6 +25,7 @@ export class GlobalTimeLine {
     this.isAdmin = this.tweetService.isAdmin;
     this.ea.subscribe(LastestTweetList, event => {
       this.tweets = event.tweets;
+      this.originalTweetList = event.tweets;
     })
   }
 
@@ -38,5 +41,16 @@ export class GlobalTimeLine {
    */
   deleteAllTweets() {
     this.tweetService.deleteAllTweets();
+  }
+
+  /**
+   * Filter displayed tweets based on entered filter text
+   * @param {string} filterText
+   */
+  filterTweets(filterText: string) {
+    this.tweets = this.originalTweetList.filter(tweet => {
+      return tweet.tweetText.toLowerCase().indexOf(filterText) != -1 || tweet.tweetDate.toLowerCase().indexOf(filterText) != -1
+        || tweet.tweetUser.firstName.toLowerCase().indexOf(filterText) != -1 || tweet.tweetUser.lastName.toLowerCase().indexOf(filterText) != -1;
+    });
   }
 }
