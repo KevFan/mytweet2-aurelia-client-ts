@@ -19,6 +19,9 @@ export class TimeLine {
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
+    this.ea.subscribe(LastestTweetList, event => {
+      this.empty = event.empty;
+    })
   }
 
   /**

@@ -2,8 +2,7 @@ import {Follow, Tweet, User} from "../../services/models";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
 import {inject} from "aurelia-framework";
-import * as $ from 'jquery';
-import {LastestTweetList, LatestUserList} from "../../services/messages";
+import {LatestUserList} from "../../services/messages";
 
 /**
  * Admin Dashboard Component
@@ -17,7 +16,7 @@ export class AdminDashboard {
   followers: Array<Follow>;
   users: Array<User>;
   filter: '';
-  originalUserList: Array<User>
+  originalUserList: Array<User>;
 
   /**
    * Constructor for admin component
@@ -38,16 +37,6 @@ export class AdminDashboard {
   attached() {
     this.tweetService.getAllUsers();
     this.filter = '';
-    $(document).ready(function () {
-      $('.item').on('click', function () {
-        // using the attribute data-modal to identify for what modal the button references
-        let modal = $(this).attr('data-modal');
-        // creating the individual event attached to click over button
-        $('#' + modal + '.modal').modal(
-          'show'
-        );
-      });
-    });
   }
 
   /**
@@ -59,6 +48,10 @@ export class AdminDashboard {
     this.tweetService.deleteAllUser();
   }
 
+  /**
+   * Use to filter user list for searching
+   * @param {string} filterText
+   */
   filterUser(filterText: string) {
     this.users = this.originalUserList.filter(user => {
       return user.firstName.toLowerCase().indexOf(filterText) != -1 || user.lastName.toLowerCase().indexOf(filterText) != -1
