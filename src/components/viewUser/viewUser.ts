@@ -1,8 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {TweetService} from '../../services/tweet-service';
-import {User} from '../../services/models';
+import {Follow, User} from '../../services/models';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {UserView} from "../../services/messages";
+import {Followers, UserView} from "../../services/messages";
 
 /**
  * Component for viewing another user
@@ -13,6 +13,8 @@ export class ViewUser {
   user: User;
   ea: EventAggregator;
   isAdmin: boolean;
+  followers: Array<Follow>;
+  alreadyFollowing = false;
 
   /**
    * Constructor for view user component
@@ -21,6 +23,15 @@ export class ViewUser {
     this.tweetService = ts;
     this.ea = ea;
     this.isAdmin = this.tweetService.isAdmin;
+    this.ea.subscribe(Followers, event => {
+      this.followers = event.followers;
+      for (let follow of this.followers) {
+        if (follow.follower._id == this.tweetService.currentUser._id) {
+          this.alreadyFollowing = true;
+          break;
+        }
+      }
+    })
   }
 
   /**
@@ -45,6 +56,7 @@ export class ViewUser {
    */
   follow(userId: string) {
     this.tweetService.follow(userId);
+    this.alreadyFollowing = true;
   }
 
   /**
@@ -53,5 +65,6 @@ export class ViewUser {
    */
   unFollow(userId: string) {
     this.tweetService.unFollow(userId);
+    this.alreadyFollowing = false;
   }
 }
