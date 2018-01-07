@@ -1,14 +1,20 @@
-import { inject } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-http-client';
+import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-http-client';
 import Fixtures from './fixtures';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {CurrentUser, LoginStatus} from './messages';
 
+/**
+ * Wrapper for http client
+ */
 @inject(HttpClient, Fixtures, EventAggregator)
 export default class AsyncHttpClient {
   http: HttpClient;
   ea: EventAggregator;
 
+  /**
+   * Constructor for AsyncHttpClient
+   */
   constructor(httpClient, fixtures, ea) {
     this.http = httpClient;
     this.http.configure(http => {
@@ -17,22 +23,37 @@ export default class AsyncHttpClient {
     this.ea = ea;
   }
 
+  /**
+   * Get Request
+   */
   get(url) {
     return this.http.get(url);
   }
+  /**
+   * Post Request
+   */
 
   post(url, obj) {
     return this.http.post(url, obj);
   }
 
+  /**
+   * Put Request
+   */
   put(url, obj) {
     return this.http.put(url, obj);
   }
 
+  /**
+   * Delete Request
+   */
   delete(url) {
     return this.http.delete(url);
   }
 
+  /**
+   * Authenticate request - on success of authentication, construct header with JWT token
+   */
   authenticate(url: string, credentials: {email:string, password:string}) {
     this.http
       .post(url, credentials)
@@ -65,6 +86,9 @@ export default class AsyncHttpClient {
       });
   }
 
+  /**
+   * Clear authentication header and local storage of token for when user logs out
+   */
   clearAuthentication() {
     localStorage.mytweet = null;
     this.http.configure(configuration => {
@@ -72,6 +96,11 @@ export default class AsyncHttpClient {
     });
   }
 
+  /**
+   * Return boolean of whether user from previous session has logged out by checking local
+   * storage
+   * @returns {boolean}
+   */
   isAuthenticated() {
     let authenticated = false;
     if (localStorage.mytweet !== 'null') {

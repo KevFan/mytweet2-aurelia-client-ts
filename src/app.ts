@@ -1,16 +1,21 @@
-import { inject, Aurelia } from 'aurelia-framework';
-import { RouterConfiguration, Router } from 'aurelia-router';
-import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoginStatus } from './services/messages';
-import { TweetService } from './services/tweet-service';
+import {Aurelia, inject} from 'aurelia-framework';
+import {Router, RouterConfiguration} from 'aurelia-router';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {LoginStatus} from './services/messages';
+import {TweetService} from './services/tweet-service';
 
-
+/**
+ * App Routing - set routes for the app
+ */
 @inject(Aurelia, EventAggregator, TweetService)
 export class App {
   router: Router;
   ts: TweetService;
   au: Aurelia;
 
+  /**
+   * Constructor for app - set routing to admin or user view on login status update
+   */
   constructor(au: Aurelia, ea: EventAggregator, ts: TweetService) {
     this.ts = ts;
     this.au = au;
@@ -29,6 +34,9 @@ export class App {
     });
   }
 
+  /**
+   * App routing map before user has logged in
+   */
   configureRouter(config: RouterConfiguration, router: Router) {
     config.map([
       {
@@ -48,6 +56,7 @@ export class App {
     ]);
     this.router = router;
   }
+
   //
   // attached() {
   //   if (this.ts.isAuthenticated()) {

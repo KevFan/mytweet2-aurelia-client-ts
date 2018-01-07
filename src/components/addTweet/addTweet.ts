@@ -1,8 +1,10 @@
-import { inject } from 'aurelia-framework';
-import { TweetService } from '../../services/tweet-service';
-import { Tweet } from '../../services/models';
+import {inject} from 'aurelia-framework';
+import {TweetService} from '../../services/tweet-service';
 import * as $ from 'jquery';
 
+/**
+ * Add Tweet component
+ */
 @inject(TweetService)
 export class AddTweet {
   tweetService: TweetService;
@@ -10,10 +12,16 @@ export class AddTweet {
   picture = '';
   pictureValue = '';
 
+  /**
+   * Constructor for add tweet component
+   */
   constructor(ts: TweetService) {
     this.tweetService = ts;
   }
 
+  /**
+   * Add tweet function - forms data for tweet image and tweet text
+   */
   addTweet() {
     let formData = new FormData();
     if (this.picture) {
@@ -27,6 +35,9 @@ export class AddTweet {
     this.resetFields();
   }
 
+  /**
+   * Close modal and reset form values
+   */
   resetFields() {
     this.tweetText = '';
     this.picture = '';

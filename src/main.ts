@@ -1,6 +1,9 @@
 import {Aurelia} from 'aurelia-framework'
 import environment from './environment';
 
+/**
+ * Main - for configuration of aurelia
+ */
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()

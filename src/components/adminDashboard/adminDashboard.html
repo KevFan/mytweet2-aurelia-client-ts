@@ -1,18 +1,25 @@
 <template>
   <section class="ui center aligned basic segment">
-    <button class="circular ui icon blue button item" data-modal="addUser">
+    <button class="circular ui icon blue button item" data-modal="addUser" data-tooltip="Add New User">
       <i class="plus icon"></i>
     </button>
-    <button click.delegate="deleteAllUsers($event)" class="circular ui icon red button">
+    <button click.delegate="deleteAllUsers($event)" class="circular ui icon red button" data-tooltip="Delete All User">
       <i class="trash icon"></i>
     </button>
+    <div class="ui search" style="display: inline;">
+      <div class="ui icon input">
+        <input class="prompt" change.delegate="filterUser(filter)" value.bind="filter" type="text" placeholder="Search users...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
   </section>
 
   <compose view-model="../adminStats/adminStats"></compose>
   <div class="ui divider"></div>
 
   <section class="ui stackable grid basic segment">
-    <compose view-model="../listUser/listUser"></compose>
+    <compose model.bind="users" view-model="../listUser/listUser"></compose>
   </section>
 
   <section class="ui modal" id="addUser"> <i class="close icon"></i>
