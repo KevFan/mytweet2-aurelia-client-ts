@@ -1,11 +1,18 @@
 <template>
-  <section if.bind="isAdmin" class="ui center aligned basic segment">
-    <button click.delegate="deleteAllTweets($event)" class="circular ui icon red button">
+  <section class="ui center aligned basic segment">
+    <button if.bind="isAdmin" click.delegate="deleteAllTweets($event)" class="circular ui icon red button" data-tooltip="Delete All Tweets">
       <i class="trash icon"></i>
     </button>
+    <div class="ui search" style="display: inline;">
+      <div class="ui icon input">
+        <input class="prompt" change.delegate="filterTweets(filter)" value.bind="filter" type="text" placeholder="Search tweets...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
   </section>
   <section class="ui basic segment">
     <compose view-model="../googleMaps/googleMaps"></compose>
   </section>
-  <compose view-model="../listTweet/listTweet"></compose>
+  <compose model.bind="tweets" view-model="../listTweet/listTweet"></compose>
 </template>

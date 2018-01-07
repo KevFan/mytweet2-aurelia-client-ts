@@ -1,14 +1,21 @@
 import {Follow, Tweet, User} from "./models";
 
+/**
+ * Message for event aggregator for login status
+ */
 export class LoginStatus {
   status: boolean;
   message: string;
-  constructor(status: boolean, message:string = '') {
+
+  constructor(status: boolean, message: string = '') {
     this.status = status;
     this.message = message;
   }
 }
 
+/**
+ * Message for event aggregator for latest tweet listing
+ */
 export class LastestTweetList {
   empty: boolean;
   tweets: Array<Tweet>;
@@ -19,6 +26,9 @@ export class LastestTweetList {
   }
 }
 
+/**
+ * Message for event aggregator for current user
+ */
 export class CurrentUser {
   user: User;
 
@@ -27,6 +37,9 @@ export class CurrentUser {
   }
 }
 
+/**
+ * Message for event aggregator for viewing another user profile
+ */
 export class UserView {
   user: User;
 
@@ -35,6 +48,9 @@ export class UserView {
   }
 }
 
+/**
+ * Message for event aggregator for latest followers listing
+ */
 export class Followers {
   followers: Array<Follow>;
 
@@ -43,7 +59,9 @@ export class Followers {
   }
 }
 
-
+/**
+ * Message for event aggregator for latest following listing
+ */
 export class Followings {
   followings: Array<Follow>;
 
@@ -52,6 +70,9 @@ export class Followings {
   }
 }
 
+/**
+ * Message for event aggregator for latest user listing
+ */
 export class LatestUserList {
   empty: boolean;
   users: Array<User>;
@@ -62,6 +83,9 @@ export class LatestUserList {
   }
 }
 
+/**
+ * Message for event aggregator for latest follow listing
+ */
 export class LatestFollowList {
   follows: Array<Follow>;
 

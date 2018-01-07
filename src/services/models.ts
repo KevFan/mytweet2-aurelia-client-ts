@@ -1,3 +1,6 @@
+/**
+ * User Model
+ */
 export interface User {
   firstName: string;
   lastName: string;
@@ -7,6 +10,9 @@ export interface User {
   _id?: string;
 }
 
+/**
+ * Admin model
+ */
 export interface Admin {
   firstName: string;
   lastName: string;
@@ -15,6 +21,9 @@ export interface Admin {
   _id?: string;
 }
 
+/**
+ * Tweet model
+ */
 export interface Tweet {
   tweetText: string;
   tweetDate?: string;
@@ -30,6 +39,9 @@ export interface Tweet {
   _id?: string;
 }
 
+/**
+ * Follow Model
+ */
 export interface Follow {
   follower: User;
   following: User;

@@ -6,14 +6,14 @@
     <p>${user.email}</p>
     <section if.bind="isCurrentUser">
       <form submit.delegate="updateProfilePicture(user._id)" method="post" enctype="multipart/form-data" style="display:inline">
-        <label for="file" class="circular ui icon blue button">
+        <label for="file" class="circular ui icon blue button" data-tooltip="Select Image">
           <i class="file image outline icon"></i></label>
         <input type="file" id="file" files.bind="picture" style="display:none">
-        <button class="circular ui icon green button">
+        <button class="circular ui icon green button" data-tooltip="Upload Image">
           <i class="cloud upload icon"></i>
         </button>
       </form>
-      <button class="circular ui icon red button" click.delegate="deleteProfilePicture(user._id)">
+      <button class="circular ui icon red button" click.delegate="deleteProfilePicture(user._id)" data-tooltip="Delete Profile Image">
         <i class="delete icon"></i></button>
     </section>
   </div>
