@@ -7,8 +7,8 @@ import {TweetService} from '../../services/tweet-service';
 @inject(TweetService)
 export class Login {
   tweetService: TweetService;
-  email = 'homer@simpson.com';
-  password = 'secret';
+  email = '';
+  password = '';
 
   /**
    * Constructor for login component

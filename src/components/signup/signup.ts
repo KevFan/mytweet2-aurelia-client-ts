@@ -9,10 +9,10 @@ import * as $ from 'jquery';
 export class Signup {
   tweetService: TweetService;
 
-  firstName = 'Marge';
-  lastName = 'Simpson';
-  email = 'marge@simpson.com';
-  password = 'secret';
+  firstName = '';
+  lastName = '';
+  email = '';
+  password = '';
 
   /**
    * Constructor for sign up component
