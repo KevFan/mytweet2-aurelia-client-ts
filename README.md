@@ -20,13 +20,15 @@ To get started, you'll need to have the following requirements installed:
 To setup the project locally:
 * Host the server application as intructed in the server application [readme](https://github.com/KevFan/myTweet2-ent-web)
 * Install project dependencies:
+
 ```
-	# Aurelia cli is installed
-	git clone <this repo>
-	cd mytweet2-aurelia-client-ts
-  npm install 
-  jspm install
+# Ensure Aurelia cli is installed
+git clone <this repo>
+cd mytweet2-aurelia-client-ts
+npm install 
+jspm install
 ```
+
 * Change the `src/services/fixtures.ts` base url to `baseUrl = 'http://localhost:4000';` to point to the locally hosted server (currently pointed to remote server)
 * For Google Maps to render correctly, you would also need to provide a Google Map API key into `src/main.ts`:
 ```
@@ -60,7 +62,7 @@ email: granpa@simpson.com
 password: secret
 ```
 
-Alternatively, for the deployed version, you can visit https://s3.console.aws.amazon.com/s3/buckets/kevfans3/?region=eu-west-1&tab=permissions. The above default accounts can also be used to log in the deployed version if they have not been deleted.
+Alternatively, for the deployed version, you can visit http://kevfans3.s3-website-eu-west-1.amazonaws.com/. The above default accounts can also be used to log in the deployed version if they have not been deleted.
 
 ## List of Software + Technologies Used
 * [Node.js](https://nodejs.org/en/) - JavaScript runtime
