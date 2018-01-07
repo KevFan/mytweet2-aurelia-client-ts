@@ -3,6 +3,7 @@ import {EventAggregator} from "aurelia-event-aggregator";
 import {TweetService} from "../../services/tweet-service";
 import {inject} from "aurelia-framework";
 import * as $ from 'jquery';
+import {LastestTweetList, LatestUserList} from "../../services/messages";
 
 /**
  * Admin Dashboard Component
@@ -14,6 +15,9 @@ export class AdminDashboard {
   ea: EventAggregator;
   tweets: Array<Tweet>;
   followers: Array<Follow>;
+  users: Array<User>;
+  filter: '';
+  originalUserList: Array<User>
 
   /**
    * Constructor for admin component
@@ -22,6 +26,10 @@ export class AdminDashboard {
     this.tweetService = ts;
     this.ea = ea;
     this.user = ts.currentUser;
+    this.ea.subscribe(LatestUserList, event => {
+      this.users = event.users;
+      this.originalUserList = event.users;
+    })
   }
 
   /**
@@ -29,6 +37,7 @@ export class AdminDashboard {
    */
   attached() {
     this.tweetService.getAllUsers();
+    this.filter = '';
     $(document).ready(function () {
       $('.item').on('click', function () {
         // using the attribute data-modal to identify for what modal the button references
@@ -48,5 +57,12 @@ export class AdminDashboard {
     this.tweetService.deleteAllFollows();
     this.tweetService.deleteAllTweets();
     this.tweetService.deleteAllUser();
+  }
+
+  filterUser(filterText: string) {
+    this.users = this.originalUserList.filter(user => {
+      return user.firstName.toLowerCase().indexOf(filterText) != -1 || user.lastName.toLowerCase().indexOf(filterText) != -1
+        || user.email.toLowerCase().indexOf(filterText) != -1;
+    });
   }
 }

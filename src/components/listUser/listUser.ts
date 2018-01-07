@@ -12,7 +12,7 @@ import * as $ from 'jquery';
  */
 export class ListUser {
   tweetService: TweetService;
-  users: Array<User>;
+  // users: Array<User>;
   ea: EventAggregator;
   empty: boolean;
 
@@ -22,10 +22,10 @@ export class ListUser {
   constructor(ts: TweetService, ea: EventAggregator) {
     this.tweetService = ts;
     this.ea = ea;
-    this.ea.subscribe(LatestUserList, event => {
-      this.empty = event.empty;
-      this.users = event.users;
-    })
+    // this.ea.subscribe(LatestUserList, event => {
+    //   this.empty = event.empty;
+    //   this.users = event.users;
+    // })
   }
 
   /**
